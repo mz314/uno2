@@ -1,0 +1,12 @@
+object cardsWindow: TcardsWindow
+  Left = 477
+  Height = 195
+  Top = 396
+  Width = 728
+  BorderStyle = bsDialog
+  Caption = 'Twoje Karty'
+  OnClose = FormClose
+  OnHide = FormHide
+  PopupMode = pmAuto
+  LCLVersion = '1.0.2.0'
+end

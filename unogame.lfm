@@ -1,0 +1,11 @@
+object Form1: TForm1
+  Left = 250
+  Height = 240
+  Top = 250
+  Width = 320
+  Caption = 'Form1'
+  FormStyle = fsMDIChild
+  PopupMode = pmExplicit
+  PopupParent = MainWindow.Owner
+  LCLVersion = '1.0.2.0'
+end
