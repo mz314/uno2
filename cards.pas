@@ -7,16 +7,32 @@ interface
 uses
   Classes, SysUtils;
 
-type Tcard_type=(N0,N1,N2,N3,N4,N5,N6,N7,N8,N9,XP,XP4,NADD2);
-type Tcard_color=(R,G,B,Y);
+const
+  N0=0;
+  N1=1;
+  N2=2;
+  N3=3;
+  N4=4;
+  N5=5;
+  N6=6;
+  N7=7;
+  N8=8;
+  N9=9;
+  SKIP=10;
+  DRAW2=11;
+  SKIP=12;
+  REVERSE=13;
+  DRAWFOURWIRD=14;
+  WILD=15;
+  CR=1;
+  CG=2;
+  CB=3;
+  CX=0;
 
 //Ułatwienie losowania
-const cardtype_array: array[0..12] of Tcard_type=(N0,N1,N2,N3,N4,N5,N6,N7,N8,N9,XP,XP4,NADD2);
-const cardcolor_array: array[0..3] of Tcard_color=(R,G,B,Y);
 
 type Tcard=record
-  c: Tcard_color;
-  t: Tcard_type;
+  c,t: word;
 end;
 
 implementation

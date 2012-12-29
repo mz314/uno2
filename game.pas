@@ -10,6 +10,7 @@ uses
 
 const
   n_cards=7;
+  all_cards=20;
 
 type TGameStates=(idle,ai,multi,multi_net);
 
