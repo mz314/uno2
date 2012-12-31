@@ -6,11 +6,11 @@ interface
 
 
 uses
-  Classes, SysUtils,main_definitions,players,cards;
+  Classes, SysUtils,main_definitions,players,cards,stack;
 
 const
   n_cards=7;
-  all_cards=20;
+  all_cards=N_N*10+N_FUNCTION+N_BLACK;
 
 type TGameStates=(idle,ai,multi,multi_net);
 
@@ -19,7 +19,9 @@ type TGameState=object
     state_changed: boolean  ;
     state: TGameStates;
     _players: array of Tplayer;
+    cards_stack: Tstack;
     procedure randomCards(var p: Tplayer);
+    procedure initStack();
  public
     constructor Create();
     procedure addPlayer(name: string);
@@ -32,10 +34,29 @@ type PGameState=^TGameState;
 
 implementation
 
+procedure TGameState.initStack();
+var
+ i,c: word;
+ tmpcard: Tcard;
+begin
+ for i:=1 to N_TYPES do
+ begin
+  tmpcard.t:=i;
+  if i<10 then
+  begin
+    for c:=1 to 3 do
+     tmpcard.c:=c;
+  end else tmpcard.c:=0;
+  cards_stack.push(tmpcard);
+ end;
+end;
+
 constructor TGameState.Create();
 begin
  self.state_changed:=false;
  self.state:=idle;
+ self.cards_stack.init();
+// self.initStack();
 end;
 
 
@@ -65,8 +86,8 @@ begin
  begin
  t:=random(13);
  c:=random(4);
- tmpCard.t:=cardtype_array[t];
- tmpCard.c:=cardcolor_array[c];
+ //tmpCard.t:=cardtype_array[t];
+ //tmpCard.c:=cardcolor_array[c];
  p.addCard(tmpCard.c,tmpCard.t);
  end;
 end;

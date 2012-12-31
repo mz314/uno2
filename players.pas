@@ -14,12 +14,12 @@ type Tplayer=class
     name: string;
     id: word;
     constructor Create();
-    procedure addCard(color: Tcard_color; cardtype: Tcard_type);
+    procedure addCard(color: word; cardtype: word);
 end;
 
 implementation
 
-procedure Tplayer.addCard(color: Tcard_color; cardtype: Tcard_type);
+procedure Tplayer.addCard(color: word; cardtype: word);
 var
  tmpcard: Tcard;
 begin

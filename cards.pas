@@ -8,6 +8,10 @@ uses
   Classes, SysUtils;
 
 const
+  N_N=2;
+  N_BLACK=4;
+  N_FUNCTION=8;
+  N_TYPES=16;
   N0=0;
   N1=1;
   N2=2;
@@ -18,7 +22,7 @@ const
   N7=7;
   N8=8;
   N9=9;
-  SKIP=10;
+  //SKIP=10;
   DRAW2=11;
   SKIP=12;
   REVERSE=13;
