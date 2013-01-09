@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="uno"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="10">
+      <Unit0>
+        <Filename Value="uno.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uno"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainWindow"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="main"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="choose.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="GameChoose"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="choose"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="game.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="game"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="cardsform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="cardsWindow"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="cardsform"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="unogame.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="unogame"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="main_definitions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="mainWindowInterface"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="main_definitions"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="players.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="players"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="cards.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cards"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="stack.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="stack"/>
+      </Unit9>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="uno"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <MsgFileName Value=""/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="4">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+      <Item4>
+        <Name Value="EInvalidOperation"/>
+      </Item4>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
