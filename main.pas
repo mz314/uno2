@@ -30,6 +30,7 @@ type
   private
     choose: TGameChoose;
     cards: TcardsWindow;
+    procedure showCards();
     { private declarations }
   public
     { public declarations }
@@ -79,6 +80,7 @@ begin
        endgame.enabled:=true;
        newgame.enabled:=false;
        cards.show();
+       showCards();
     end else
     begin
       logo.visible:=true;
@@ -98,6 +100,17 @@ procedure TMainWindow.endgameClick(Sender: TObject);
 begin
   gameState.setState(idle);
   self.FormActivate(Sender);
+end;
+
+procedure TMainWindow.showCards;
+var
+  i: word;
+begin
+  //showmessage(inttostr(length(cards.glyphs)));
+  if length(cards.glyphs)>0 then
+  for i:=0 to length(cards.glyphs) do
+   cards.glyphs[i].Destroy();
+
 end;
 
 end.

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls,game,main_definitions;
+  ExtCtrls, ComCtrls,game,main_definitions;
 
 
 
@@ -21,8 +21,10 @@ type
   TGameChoose = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    pcount: TEdit;
     GroupBox1: TGroupBox;
     RadioGroup1: TRadioGroup;
+    UpDown1: TUpDown;
 
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);

@@ -7,12 +7,13 @@ interface
 uses
   Classes, SysUtils,cards,Dialogs;
 
-type Tstack=class
+type Tstack=object
  private
    data: array of Tcard;
-   i: integer;
+
  public
-    procedure init;
+   i: integer;
+constructor create;
     procedure push(card: Tcard);
     function pop() : Tcard;
 
@@ -20,11 +21,11 @@ end;
 
 implementation
 
-procedure Tstack.init;
+constructor Tstack.create;
 begin
   //showmessage('c');
-  //ssetLength(data,0);
-  self.i:=0;
+  setLength(data,0);
+  i:=0;
 end;
 
 procedure Tstack.push(card: Tcard);

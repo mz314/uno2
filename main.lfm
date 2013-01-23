@@ -1,7 +1,7 @@
 inherited MainWindow: TMainWindow
-  Left = 195
+  Left = 192
   Height = 484
-  Top = 187
+  Top = 57
   Width = 735
   HorzScrollBar.Page = 735
   VertScrollBar.Page = 459

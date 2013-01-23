@@ -5,7 +5,7 @@ unit cardsform;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,game,main_definitions;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,game,ExtCtrls,main_definitions;
 
 type
 
@@ -15,8 +15,9 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormHide(Sender: TObject);
   private
-    { private declarations }
+
   public
+    glyphs: array of TImage;
     gameState: PGameState;
   end;
 

@@ -1,7 +1,7 @@
 object GameChoose: TGameChoose
-  Left = 278
+  Left = 678
   Height = 279
-  Top = 228
+  Top = 313
   Width = 328
   Caption = 'Rodzaj gry'
   ClientHeight = 279
@@ -39,7 +39,28 @@ object GameChoose: TGameChoose
     Top = 144
     Width = 312
     Caption = 'Ilość graczy'
+    ClientHeight = 60
+    ClientWidth = 308
     TabOrder = 1
+    object pcount: TEdit
+      Left = 28
+      Height = 23
+      Top = 28
+      Width = 74
+      TabOrder = 0
+      Text = '4'
+    end
+    object UpDown1: TUpDown
+      Left = 102
+      Height = 23
+      Top = 28
+      Width = 17
+      Associate = pcount
+      Min = 0
+      Position = 4
+      TabOrder = 1
+      Wrap = False
+    end
   end
   object Button1: TButton
     Left = 136
