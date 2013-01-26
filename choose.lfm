@@ -25,7 +25,7 @@ object GameChoose: TGameChoose
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 117
     ClientWidth = 308
-    ItemIndex = 0
+    ItemIndex = 1
     Items.Strings = (
       'AI'
       'Wielu graczy na jednym komputerze'

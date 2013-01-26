@@ -7,21 +7,22 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, choose, game,cardsform,main_definitions,cards,players;
+  StdCtrls, ExtCtrls,
+  choose, game,cardsform,main_definitions,cards,players,layout;
 
 type
 
   { TMainWindow }
 
   TMainWindow = class(TmainWindowInterface)
-    logo: TImage;
+    currentCard: TImage;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     newgame: TMenuItem;
     endgame: TMenuItem;
 
-    procedure startGame override;
+    procedure startGame; override;
     procedure endgameClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -76,7 +77,7 @@ procedure TMainWindow.startGame;
 begin
   if (gameState.getState<>idle) then
     begin
-       logo.visible:=false;
+       //logo.visible:=false;
        endgame.enabled:=true;
        newgame.enabled:=false;
        gameState.addPlayer('testplayer');
@@ -84,7 +85,7 @@ begin
        showCards();
     end else
     begin
-      logo.visible:=true;
+     // logo.visible:=true;
       endgame.Enabled:=false;
        newgame.enabled:=true;
     end;
@@ -106,6 +107,7 @@ end;
 procedure TMainWindow.showCards;
 var
   i,g: word;
+  cleft: integer;
   player_cards: Tcards;
   current_player: Tplayer;
 begin
@@ -115,12 +117,18 @@ begin
    cards.glyphs[i].Destroy();
   current_player:=gameState.getCurrentPlayer;
   player_cards:=current_player.getCards();
+  cleft:=if_card_margin_left;
   for i:=1 to length(player_cards) do
    begin
       setLength(cards.glyphs,length(cards.glyphs)+1);
       g:=length(cards.glyphs)-1;
       cards.glyphs[g]:=TImage.Create(cards);
       cards.glyphs[g].picture.LoadFromFile('images/red-empty.jpg');
+      cards.glyphs[g].width:=if_card_width;
+      cards.glyphs[g].height:=if_card_height;
+      cards.glyphs[g].top:=if_card_margin_top;
+      cleft:=if_card_margin_left+(i-1)*(if_card_space+if_card_width);
+      cards.glyphs[g].left:=cleft;
       cards.glyphs[g].parent:=cards;
 
    end;
