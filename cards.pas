@@ -39,6 +39,8 @@ type Tcard=record
   c,t: word;
 end;
 
+type Tcards=array of Tcard;
+
 implementation
 
 

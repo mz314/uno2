@@ -6,7 +6,8 @@ interface
 
 
 uses
-  Classes, SysUtils,main_definitions,players,cards,stack;
+  Classes, SysUtils,main_definitions,players,cards,stack, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
+  StdCtrls, ExtCtrls;
 
 const
   n_cards=7;
@@ -61,6 +62,7 @@ end;
 
 constructor TGameState.Create();
 begin
+ current_player:=0;
  self.state_changed:=false;
  self.state:=idle;
  self.cards_stack.create();
@@ -109,10 +111,12 @@ procedure TgameState.addPlayer(name: string);
 var
   tmpPlayer: Tplayer;
 begin
-  tmpPlayer.name:=name;
+
+ tmpPlayer.name:=name;
   tmpPlayer.id:=length(_players);
   setLength(_players,length(_players)+1);
   self.randomCards(tmpPlayer);
+  _players[length(_players)-1]:=tmpPlayer;
 end;
 
 end.

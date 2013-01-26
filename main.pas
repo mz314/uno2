@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls, choose, game,cardsform,main_definitions;
+  StdCtrls, ExtCtrls, choose, game,cardsform,main_definitions,cards,players;
 
 type
 
@@ -79,6 +79,7 @@ begin
        logo.visible:=false;
        endgame.enabled:=true;
        newgame.enabled:=false;
+       gameState.addPlayer('testplayer');
        cards.show();
        showCards();
     end else
@@ -104,12 +105,25 @@ end;
 
 procedure TMainWindow.showCards;
 var
-  i: word;
+  i,g: word;
+  player_cards: Tcards;
+  current_player: Tplayer;
 begin
   //showmessage(inttostr(length(cards.glyphs)));
   if length(cards.glyphs)>0 then
   for i:=0 to length(cards.glyphs) do
    cards.glyphs[i].Destroy();
+  current_player:=gameState.getCurrentPlayer;
+  player_cards:=current_player.getCards();
+  for i:=1 to length(player_cards) do
+   begin
+      setLength(cards.glyphs,length(cards.glyphs)+1);
+      g:=length(cards.glyphs)-1;
+      cards.glyphs[g]:=TImage.Create(cards);
+      cards.glyphs[g].picture.LoadFromFile('images/red-empty.jpg');
+      cards.glyphs[g].parent:=cards;
+
+   end;
 
 end;
 

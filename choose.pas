@@ -62,6 +62,7 @@ begin
   end;
 
   f:=TmainWindowInterface(mainForm);
+
   f.startGame();
  // f.FormActivate(self);
   self.close;
