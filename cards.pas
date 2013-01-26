@@ -31,6 +31,7 @@ const
   CR=1;
   CG=2;
   CB=3;
+  CY=4;
   CX=0;
 
 //Ułatwienie losowania

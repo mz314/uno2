@@ -21,12 +21,15 @@ type TGameState=object
     state: TGameStates;
     _players: array of Tplayer;
     current_player: word;
+    current_card: Tcard;
     cards_stack: Tstack;
     procedure randomCards(var p: Tplayer);
     procedure initStack();
  public
     constructor Create();
     procedure addPlayer(name: string);
+    function drawCard() : Tcard;
+    function peekCard() : Tcard;
     function getCurrentPlayer() : Tplayer;
     function getState() : TGameStates;
     function stateChanged() : boolean;
@@ -36,6 +39,17 @@ end;
 type PGameState=^TGameState;
 
 implementation
+
+function TGameState.peekCard() : Tcard;
+begin
+ peekCard:=current_card;
+end;
+
+function TGameState.drawCard() : Tcard;
+begin
+ current_card:=cards_stack.pop();
+ drawCard:=current_card;
+end;
 
 procedure TGameState.initStack();
 var

@@ -1,8 +1,8 @@
 object cardsWindow: TcardsWindow
-  Left = 477
+  Left = 225
   Height = 195
-  Top = 396
-  Width = 728
+  Top = 398
+  Width = 1017
   Caption = 'Twoje Karty'
   OnClose = FormClose
   OnHide = FormHide

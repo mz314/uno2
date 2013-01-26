@@ -21,7 +21,6 @@ type
     MenuItem2: TMenuItem;
     newgame: TMenuItem;
     endgame: TMenuItem;
-
     procedure startGame; override;
     procedure endgameClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -32,6 +31,7 @@ type
     choose: TGameChoose;
     cards: TcardsWindow;
     procedure showCards();
+    function cardToImage(c: Tcard) : string; //Przyporządkowuje plik graficzny do karty
     { private declarations }
   public
     { public declarations }
@@ -48,6 +48,19 @@ implementation
 { TMainWindow }
 
 
+function TMainWindow.cardToImage(c: Tcard) : string;
+var
+  fn: string;
+begin
+  case c.c of
+   CR: fn:='red-empty.jpg';
+   CG: fn:='green-empty.jpg';
+   CB: fn:='blue-empty.jpg';
+   CY: fn:='yellow-empty.jpg';
+   else fn:='1-red.jpg';
+  end;
+  cardToImage:=images_dir+fn;
+end;
 
 procedure TMainWindow.newgameClick(Sender: TObject);
 begin
@@ -82,7 +95,9 @@ begin
        newgame.enabled:=false;
        gameState.addPlayer('testplayer');
        cards.show();
+       gameState.drawCard();
        showCards();
+
     end else
     begin
      // logo.visible:=true;
@@ -111,27 +126,29 @@ var
   player_cards: Tcards;
   current_player: Tplayer;
 begin
-  //showmessage(inttostr(length(cards.glyphs)));
+  {Karty gracza}
   if length(cards.glyphs)>0 then
   for i:=0 to length(cards.glyphs) do
    cards.glyphs[i].Destroy();
   current_player:=gameState.getCurrentPlayer;
   player_cards:=current_player.getCards();
   cleft:=if_card_margin_left;
-  for i:=1 to length(player_cards) do
+  for i:=0 to length(player_cards)-1 do
    begin
       setLength(cards.glyphs,length(cards.glyphs)+1);
       g:=length(cards.glyphs)-1;
       cards.glyphs[g]:=TImage.Create(cards);
-      cards.glyphs[g].picture.LoadFromFile('images/red-empty.jpg');
+      cards.glyphs[g].picture.LoadFromFile(cardToImage(player_cards[i]));
       cards.glyphs[g].width:=if_card_width;
       cards.glyphs[g].height:=if_card_height;
       cards.glyphs[g].top:=if_card_margin_top;
-      cleft:=if_card_margin_left+(i-1)*(if_card_space+if_card_width);
+      cleft:=if_card_margin_left+i*(if_card_space+if_card_width);
       cards.glyphs[g].left:=cleft;
       cards.glyphs[g].parent:=cards;
 
    end;
+   {Karta na środku}
+   currentCard.picture.loadFromFile(cardToImage(gameState.peekCard()));
 
 end;
 
