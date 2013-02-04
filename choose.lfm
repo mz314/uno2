@@ -1,47 +1,22 @@
 object GameChoose: TGameChoose
-  Left = 678
-  Height = 279
-  Top = 313
+  Left = 561
+  Height = 196
+  Top = 314
   Width = 328
   Caption = 'Rodzaj gry'
-  ClientHeight = 279
+  ClientHeight = 196
   ClientWidth = 328
   OnClose = FormClose
   LCLVersion = '1.0.2.0'
-  object RadioGroup1: TRadioGroup
-    Left = 8
-    Height = 134
-    Top = 0
-    Width = 312
-    AutoFill = True
-    Caption = 'Wybierz rodzaj gry'
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.TopBottomSpacing = 6
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 117
-    ClientWidth = 308
-    ItemIndex = 1
-    Items.Strings = (
-      'AI'
-      'Wielu graczy na jednym komputerze'
-      'Wielu graczy przez sieć'
-    )
-    TabOrder = 0
-  end
   object GroupBox1: TGroupBox
     Left = 8
     Height = 77
-    Top = 144
+    Top = 72
     Width = 312
     Caption = 'Ilość graczy'
     ClientHeight = 60
     ClientWidth = 308
-    TabOrder = 1
+    TabOrder = 0
     object pcount: TEdit
       Left = 28
       Height = 23
@@ -63,21 +38,38 @@ object GameChoose: TGameChoose
     end
   end
   object Button1: TButton
-    Left = 136
+    Left = 144
     Height = 25
-    Top = 240
+    Top = 160
     Width = 75
     Caption = 'Anuluj'
     OnClick = Button1Click
-    TabOrder = 2
+    TabOrder = 1
   end
   object Button2: TButton
-    Left = 232
+    Left = 240
     Height = 25
-    Top = 240
+    Top = 160
     Width = 75
     Caption = 'OK'
     OnClick = Button2Click
+    TabOrder = 2
+  end
+  object GroupBox2: TGroupBox
+    Left = 8
+    Height = 64
+    Top = 0
+    Width = 312
+    Caption = 'Twoje imie'
+    ClientHeight = 47
+    ClientWidth = 308
     TabOrder = 3
+    object player_name: TEdit
+      Left = 6
+      Height = 23
+      Top = 9
+      Width = 296
+      TabOrder = 0
+    end
   end
 end

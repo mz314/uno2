@@ -16,13 +16,16 @@ type
 
   TMainWindow = class(TmainWindowInterface)
     currentCard: TImage;
+    GroupBox1: TGroupBox;
+    Gracze: TGroupBox;
+    players_list: TListBox;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     newgame: TMenuItem;
     endgame: TMenuItem;
     procedure FormClick(Sender: TObject);
-    procedure startGame; override;
+    procedure startGame(player_name: string; players: word); override;
     procedure endgameClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -92,14 +95,14 @@ begin
 
 end;
 
-procedure TMainWindow.startGame;
+procedure TMainWindow.startGame(player_name: string; players: word);
 begin
   if (gameState.getState<>idle) then
     begin
        //logo.visible:=false;
        endgame.enabled:=true;
        newgame.enabled:=false;
-       gameState.addPlayer('testplayer');
+       gameState.addPlayer(player_name);
        cards.show();
        gameState.drawCard();
        showCards();

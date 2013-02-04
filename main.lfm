@@ -19,15 +19,45 @@ inherited MainWindow: TMainWindow
   OnClick = FormClick
   OnCreate = FormCreate
   OnPaint = FormPaint
-  object currentCard: TImage[0]
-    Left = 280
-    Height = 216
-    Top = 112
-    Width = 162
+  object GroupBox1: TGroupBox[0]
+    Left = 136
+    Height = 305
+    Top = 64
+    Width = 296
+    Caption = 'Karta'
+    ClientHeight = 288
+    ClientWidth = 292
+    TabOrder = 0
+    object currentCard: TImage
+      Left = 54
+      Height = 216
+      Top = 25
+      Width = 210
+    end
   end
-  object MainMenu1: TMainMenu[1]
-    left = 680
-    top = 56
+  object Gracze: TGroupBox[1]
+    Left = 496
+    Height = 289
+    Top = 56
+    Width = 209
+    Caption = 'Gracze'
+    ClientHeight = 272
+    ClientWidth = 205
+    TabOrder = 1
+    object players_list: TListBox
+      Left = 14
+      Height = 232
+      Top = 17
+      Width = 172
+      ItemHeight = 0
+      ScrollWidth = 168
+      TabOrder = 0
+      TopIndex = -1
+    end
+  end
+  object MainMenu1: TMainMenu[2]
+    left = 72
+    top = 48
     object MenuItem1: TMenuItem
       Caption = 'Plik'
       object newgame: TMenuItem

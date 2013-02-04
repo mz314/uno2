@@ -48,9 +48,9 @@ begin
    case t.tag of
     10: t.canvas.textout(45,70,'SKIP');
     11: t.canvas.textout(45,70,'+2');
-    12: t.canvas.textout(45,70,'REVERSE');
-    13: t.canvas.textout(45,70,'DRAWFOURWILD');
-    14: t.canvas.textout(45,70,'WILD');
+    12: t.canvas.textout(45,70,'<-->');
+    13: t.canvas.textout(45,70,'+4XP');
+    14: t.canvas.textout(45,70,'XP');
    end;
   end;
 end;

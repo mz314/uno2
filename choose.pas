@@ -21,9 +21,10 @@ type
   TGameChoose = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    player_name: TEdit;
+    GroupBox2: TGroupBox;
     pcount: TEdit;
     GroupBox1: TGroupBox;
-    RadioGroup1: TRadioGroup;
     UpDown1: TUpDown;
 
     procedure Button1Click(Sender: TObject);
@@ -55,15 +56,13 @@ procedure TGameChoose.Button2Click(Sender: TObject);
 var
   f: TmainWindowInterface;
 begin
-  case RadioGroup1.ItemIndex of
-   0: showmessage('Nie zaimplementowano');
-   1: gameState^.setState(multi);
-   2: showMessage('Nie zaimplementowano');
-  end;
+  if player_name.text='' then
+   player_name.text:='Gracz';
+ gameState^.setState(multi); //potem wycofam
 
   f:=TmainWindowInterface(mainForm);
 
-  f.startGame();
+  f.startGame(player_name.text,strtoint(pcount.text));
  // f.FormActivate(self);
   self.close;
 end;

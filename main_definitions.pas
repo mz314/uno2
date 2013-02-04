@@ -13,7 +13,7 @@ StdCtrls, ExtCtrls;
 
 type TmainWindowInterface=class abstract(TForm)
  public
-  procedure startGame; virtual; Abstract;
+  procedure startGame(player_name: string; players: word); virtual; Abstract;
 end;
 
 type TcardsWindowInterface=class abstract(TForm)
