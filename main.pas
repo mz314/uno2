@@ -21,6 +21,7 @@ type
     MenuItem2: TMenuItem;
     newgame: TMenuItem;
     endgame: TMenuItem;
+    procedure FormClick(Sender: TObject);
     procedure startGame; override;
     procedure endgameClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -32,8 +33,10 @@ type
     cards: TcardsWindow;
     procedure showCards();
     function cardToImage(c: Tcard) : string; //Przyporządkowuje plik graficzny do karty
+
     { private declarations }
   public
+
     { public declarations }
   end;
 
@@ -46,6 +49,8 @@ implementation
 {$R *.lfm}
 
 { TMainWindow }
+
+
 
 
 function TMainWindow.cardToImage(c: Tcard) : string;
@@ -71,6 +76,7 @@ procedure TMainWindow.FormCreate(Sender: TObject);
 var
   f: Pointer;
 begin
+  randomize;
   gameState.Create();
   choose:=TGameChoose.Create(self);
   choose.gameState:=@gameState;
@@ -107,6 +113,11 @@ begin
 
 end;
 
+procedure TMainWindow.FormClick(Sender: TObject);
+begin
+
+end;
+
 procedure TMainWindow.FormActivate(Sender: TObject);
 begin
   //showmessage('test');
@@ -131,6 +142,7 @@ begin
   for i:=0 to length(cards.glyphs) do
    cards.glyphs[i].Destroy();
   current_player:=gameState.getCurrentPlayer;
+//  showmessage(current_player.name);
   player_cards:=current_player.getCards();
   cleft:=if_card_margin_left;
   for i:=0 to length(player_cards)-1 do
@@ -145,11 +157,13 @@ begin
       cleft:=if_card_margin_left+i*(if_card_space+if_card_width);
       cards.glyphs[g].left:=cleft;
       cards.glyphs[g].parent:=cards;
-
+      cards.glyphs[g].OnPaint:=@cards.drawNumber;
+      cards.glyphs[g].Tag:=player_cards[i].t;
    end;
    {Karta na środku}
+   //self.OnClick:=@drawNumber;
    currentCard.picture.loadFromFile(cardToImage(gameState.peekCard()));
-
+   currentCard.OnPaint:=@cards.drawNumber;
 end;
 
 end.

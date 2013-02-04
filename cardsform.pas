@@ -14,11 +14,14 @@ type
   TcardsWindow = class(TcardsWindowInterface)
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormHide(Sender: TObject);
+
   private
 
   public
+
     glyphs: array of TImage;
     gameState: PGameState;
+     procedure drawNumber(Sender: TObject);
   end;
 
 var
@@ -29,6 +32,28 @@ implementation
 {$R *.lfm}
 
 { TcardsWindow }
+
+procedure TCardsWindow.drawNumber(Sender: TObject);
+var
+  t: TImage;
+begin
+  t:=Sender as TImage;
+  t.canvas.font.size:=24;
+  if t.tag<10 then
+  begin
+    t.canvas.textout(45,70,inttostr(t.tag));
+  end
+  else
+  begin {tymczasowo}
+   case t.tag of
+    10: t.canvas.textout(45,70,'SKIP');
+    11: t.canvas.textout(45,70,'+2');
+    12: t.canvas.textout(45,70,'REVERSE');
+    13: t.canvas.textout(45,70,'DRAWFOURWILD');
+    14: t.canvas.textout(45,70,'WILD');
+   end;
+  end;
+end;
 
 procedure TcardsWindow.FormClose(Sender: TObject; var CloseAction: TCloseAction
   );

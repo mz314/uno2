@@ -56,16 +56,16 @@ var
  i,c: word;
  tmpcard: Tcard;
 begin
- for i:=1 to N_TYPES do
+ for c:=1 to 4 do
  begin
-  tmpcard.t:=i;
-  if i<10 then
+  for i:=1 to N_TYPES do
   begin
-    for c:=1 to 3 do
-     tmpcard.c:=c;
-  end else tmpcard.c:=0;
-  cards_stack.push(tmpcard);
+   tmpcard.t:=i;
+   tmpcard.c:=c;
+   cards_stack.push(tmpcard);
+  end;
  end;
+ cards_stack.shuffle;
 end;
 
 function TGameState.getCurrentPlayer() : Tplayer;
@@ -111,12 +111,13 @@ var
  tmpCard: Tcard;
  t,c,i: word;
 begin
+
  for i:=1 to n_cards do
  begin
   tmpCard:=cards_stack.pop();
 
  //tmpCard.t:=cardtype_array[t];
- //tmpCard.c:=cardcolor_array[c];
+// tmpCard.c:=CG;
  p.addCard(tmpCard.c,tmpCard.t);
  end;
 end;
@@ -125,7 +126,7 @@ procedure TgameState.addPlayer(name: string);
 var
   tmpPlayer: Tplayer;
 begin
-
+ // showmessage('randomCards');
  tmpPlayer.name:=name;
   tmpPlayer.id:=length(_players);
   setLength(_players,length(_players)+1);

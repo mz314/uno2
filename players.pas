@@ -31,6 +31,7 @@ var
 begin
  setLength(cards,length(cards)+1);
  tmpcard.c:=color;
+ //tmpcard.c:=CY;
  tmpcard.t:=cardtype;
  cards[length(cards)-1]:=tmpcard;
 end;

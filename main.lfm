@@ -16,6 +16,7 @@ inherited MainWindow: TMainWindow
   ClientWidth = 735
   Menu = MainMenu1
   OnActivate = FormActivate
+  OnClick = FormClick
   OnCreate = FormCreate
   OnPaint = FormPaint
   object currentCard: TImage[0]

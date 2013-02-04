@@ -15,11 +15,26 @@ type Tstack=object
    i: integer;
 constructor create;
     procedure push(card: Tcard);
+    procedure shuffle; //miesza karty
     function pop() : Tcard;
 
 end;
 
 implementation
+
+procedure Tstack.shuffle;
+var
+ tmp: Tcard;
+ n,ri: integer;
+begin
+  for n:=0 to length(data) do
+  begin
+   ri:=random(length(data));
+   tmp:=data[ri];
+   data[ri]:=data[n];
+   data[n]:=tmp;
+  end;
+end;
 
 constructor Tstack.create;
 begin
