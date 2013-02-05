@@ -1,11 +1,22 @@
 object cardsWindow: TcardsWindow
   Left = 225
-  Height = 195
+  Height = 316
   Top = 398
   Width = 1017
   Caption = 'Twoje Karty'
+  ClientHeight = 316
+  ClientWidth = 1017
   OnClose = FormClose
   OnHide = FormHide
   PopupMode = pmAuto
   LCLVersion = '1.0.2.0'
+  object drawButton: TButton
+    Left = 880
+    Height = 179
+    Top = 120
+    Width = 115
+    Caption = 'Ciągnij kartę'
+    OnClick = drawButtonClick
+    TabOrder = 0
+  end
 end

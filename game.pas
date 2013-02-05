@@ -20,18 +20,25 @@ type TGameState=object
     state_changed: boolean  ;
     state: TGameStates;
     _players: array of Tplayer;
-    current_player: word;
+    current_player,human_player: word;
     current_card: Tcard;
     cards_stack: Tstack;
     procedure randomCards(var p: Tplayer);
     procedure initStack();
  public
+    mainForm: Pointer;
     constructor Create();
-    procedure addPlayer(name: string);
+    procedure addPlayer(name: string; ai: boolean);
+    procedure nextPlayer;
     function drawCard() : Tcard;
-    function peekCard() : Tcard;
+    function peekCard() : Pcard;
+    procedure setCard(card: Tcard);  //ustawia aktualną kartę
+    function putCard(card: TCard) : boolean; //gdy gracz kładzie wyrzuca kartę na stos; false gdy karta jest zła
+    procedure playerDraw(n: integer);
     function getCurrentPlayer() : Tplayer;
+    function getHumanPlayer() : Tplayer;
     function getState() : TGameStates;
+    function getPlayers() : Aplayer;
     function stateChanged() : boolean;
     procedure setState(newstate: TGameStates);
 end;
@@ -40,9 +47,50 @@ type PGameState=^TGameState;
 
 implementation
 
-function TGameState.peekCard() : Tcard;
+procedure TGameState.playerDraw(n: integer);
+var
+  i: integer;
+  c: TCard;
 begin
- peekCard:=current_card;
+ for i:=1 to n do
+ begin
+  //showmessage(inttostr(current_player));
+  c:=cards_stack.pop();
+  _players[current_player].addCard(c.c,c.t);
+ end;
+end;
+
+function TGameState.putCard(card: TCard) : boolean;
+begin
+ if (card.t=current_card.t) or (card.c=current_card.c) then
+ begin
+   current_card:=card;
+   putCard:=true;
+ end else putCard:=false;
+end;
+
+procedure TGameState.setCard(card: Tcard);
+begin
+  current_card:=card;
+end;
+
+procedure TGameState.nextPlayer;
+var
+   f: TmainWindowInterface;
+begin
+ f:=TmainWindowInterface(mainForm);
+ inc(current_player);
+  f.nextMove;
+end;
+
+function TGameState.getPlayers() : Aplayer;
+begin
+ getPlayers:=_players;
+end;
+
+function TGameState.peekCard() : Pcard;
+begin
+ peekCard:=@current_card;
 end;
 
 function TGameState.drawCard() : Tcard;
@@ -71,7 +119,12 @@ end;
 function TGameState.getCurrentPlayer() : Tplayer;
 begin
   getCurrentPlayer:=_players[current_player];
-  inc(current_player);
+  //inc(current_player);
+end;
+
+function TGameState.getHumanPlayer() : Tplayer;
+begin
+ getHumanPlayer:=_players[human_player];
 end;
 
 constructor TGameState.Create();
@@ -81,6 +134,7 @@ begin
  self.state:=idle;
  self.cards_stack.create();
  self.initStack();
+ current_card:=cards_stack.pop;
 end;
 
 
@@ -122,13 +176,15 @@ begin
  end;
 end;
 
-procedure TgameState.addPlayer(name: string);
+procedure TgameState.addPlayer(name: string; ai: boolean);
 var
   tmpPlayer: Tplayer;
 begin
  // showmessage('randomCards');
  tmpPlayer.name:=name;
   tmpPlayer.id:=length(_players);
+  tmpPlayer.ai:=ai;
+  if ai then human_player:=tmpPlayer.id;
   setLength(_players,length(_players)+1);
   self.randomCards(tmpPlayer);
   _players[length(_players)-1]:=tmpPlayer;

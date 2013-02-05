@@ -24,6 +24,8 @@ type
     MenuItem2: TMenuItem;
     newgame: TMenuItem;
     endgame: TMenuItem;
+    aiTimer: TTimer;
+    procedure aiTimerTimer(Sender: TObject);
     procedure FormClick(Sender: TObject);
     procedure startGame(player_name: string; players: word); override;
     procedure endgameClick(Sender: TObject);
@@ -34,12 +36,16 @@ type
   private
     choose: TGameChoose;
     cards: TcardsWindow;
-    procedure showCards();
+    procedure showCards; //wyświetla i odświerza karty gracza
+    procedure lockCards; //blokuje możliwość gry na czas gry AI
     function cardToImage(c: Tcard) : string; //Przyporządkowuje plik graficzny do karty
+    procedure refreshCard; //odświerza kartę
 
+    procedure showPlayerList;
+    procedure selectCurrent; //zaznacza bieżącego gracza
     { private declarations }
   public
-
+        procedure nextMove;  override;
     { public declarations }
   end;
 
@@ -53,8 +59,54 @@ implementation
 
 { TMainWindow }
 
+procedure TMainWindow.refreshCard;
+var
+ c: TCard;
+ pc: PCard;
+begin
+   currentCard.picture.loadFromFile(cardToImage(gameState.peekCard^));
+   currentCard.tag:=PtrInt(gameState.peekCard);
+   currentCard.OnPaint:=@cards.drawNumber;
+end;
 
+procedure TMainWindow.showPlayerList;
+var
+ i,n: integer;
+ a: APlayer;
+begin
+ a:=gameState.getPlayers();
+  for i:=0 to length(a) do
+   players_list.AddItem(a[i].name,nil);
 
+end;
+
+procedure TMainWindow.nextMove;
+var
+  current: TPlayer;
+begin
+  current:=gameState.getCurrentPlayer();
+  //gameState.drawCard();
+  //if not current.ai then  //ale będzie problem, jeżeli gra zaczyna się od AI
+   showCards()  ;
+  if current.ai then
+  begin
+   aiTimer.enabled:=true;
+  end;
+  // lockCards;
+ // lockCards;
+  selectCurrent;
+  refreshCard;
+
+end;
+
+procedure TMainWindow.selectCurrent;
+var
+  current: TPlayer;
+begin
+ current:=gameState.getCurrentPlayer();
+  //current:=gameState.getCurrentPlayer();
+ players_list.ItemIndex:=current.id;
+end;
 
 function TMainWindow.cardToImage(c: Tcard) : string;
 var
@@ -87,7 +139,10 @@ begin
   cards.gameState:=@gameState;
    f:=self;
    choose.mainForm:=f;
+   cards.mainForm:=f;
+   gameState.mainForm:=f;
    //p:=@self.startGame;
+   aiTimer.Enabled:=false;
 end;
 
 procedure TMainWindow.FormPaint(Sender: TObject);
@@ -96,16 +151,22 @@ begin
 end;
 
 procedure TMainWindow.startGame(player_name: string; players: word);
+var
+  i: word;
 begin
   if (gameState.getState<>idle) then
     begin
-       //logo.visible:=false;
+        cards.show();
        endgame.enabled:=true;
        newgame.enabled:=false;
-       gameState.addPlayer(player_name);
-       cards.show();
-       gameState.drawCard();
-       showCards();
+       gameState.addPlayer(player_name,false);
+       for i:=1 to players do
+        begin
+         gameState.addPlayer('KOMPUTER_'+inttostr(i),True);
+
+        end;
+       showPlayerList;
+       nextMove();
 
     end else
     begin
@@ -121,6 +182,11 @@ begin
 
 end;
 
+procedure TMainWindow.aiTimerTimer(Sender: TObject);
+begin
+  showmessage('test');
+end;
+
 procedure TMainWindow.FormActivate(Sender: TObject);
 begin
   //showmessage('test');
@@ -133,18 +199,34 @@ begin
   self.FormActivate(Sender);
 end;
 
+procedure TMainWindow.lockCards;
+var
+  i,n: word;
+begin
+  n:=length(cards.glyphs);
+  for i:=0 to n-1 do
+  begin
+     cards.glyphs[i].enabled:=false;
+  end;
+end;
+
 procedure TMainWindow.showCards;
 var
   i,g: word;
   cleft: integer;
   player_cards: Tcards;
   current_player: Tplayer;
+  p: Pcard;
 begin
   {Karty gracza}
   if length(cards.glyphs)>0 then
-  for i:=0 to length(cards.glyphs) do
-   cards.glyphs[i].Destroy();
-  current_player:=gameState.getCurrentPlayer;
+   begin
+   for i:=0 to length(cards.glyphs)-1 do
+    begin
+     cards.glyphs[i].Destroy();
+    end;
+   end;
+   current_player:=gameState.getHumanPlayer;
 //  showmessage(current_player.name);
   player_cards:=current_player.getCards();
   cleft:=if_card_margin_left;
@@ -160,13 +242,15 @@ begin
       cleft:=if_card_margin_left+i*(if_card_space+if_card_width);
       cards.glyphs[g].left:=cleft;
       cards.glyphs[g].parent:=cards;
-      cards.glyphs[g].OnPaint:=@cards.drawNumber;
-      cards.glyphs[g].Tag:=player_cards[i].t;
+     p:=@(player_cards[i]);
+     player_cards[i]:=p^;
+     //if p=nil then showmessage('nil');
+
+     cards.glyphs[g].Tag:=PtrInt(p);
+         cards.glyphs[g].OnPaint:=@cards.drawNumber;
+      cards.glyphs[g].enabled:=true;
+      cards.glyphs[g].OnClick:=@cards.cardClicked;
    end;
-   {Karta na środku}
-   //self.OnClick:=@drawNumber;
-   currentCard.picture.loadFromFile(cardToImage(gameState.peekCard()));
-   currentCard.OnPaint:=@cards.drawNumber;
 end;
 
 end.

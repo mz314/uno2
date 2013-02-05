@@ -42,6 +42,8 @@ end;
 
 type Tcards=array of Tcard;
 
+type PCard=^TCard;
+
 implementation
 
 

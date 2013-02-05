@@ -1,10 +1,10 @@
 inherited MainWindow: TMainWindow
-  Left = 392
-  Height = 484
-  Top = 107
+  Left = 315
+  Height = 520
+  Top = 115
   Width = 735
   HorzScrollBar.Page = 735
-  VertScrollBar.Page = 459
+  VertScrollBar.Page = 495
   Align = alTop
   Anchors = []
   AutoScroll = True
@@ -12,7 +12,7 @@ inherited MainWindow: TMainWindow
   BorderIcons = []
   Caption = 'UNO'
   ChildSizing.ControlsPerLine = 2
-  ClientHeight = 459
+  ClientHeight = 495
   ClientWidth = 735
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -20,37 +20,39 @@ inherited MainWindow: TMainWindow
   OnCreate = FormCreate
   OnPaint = FormPaint
   object GroupBox1: TGroupBox[0]
-    Left = 136
-    Height = 305
-    Top = 64
-    Width = 296
+    Left = 0
+    Height = 495
+    Top = 0
+    Width = 376
+    Align = alLeft
     Caption = 'Karta'
-    ClientHeight = 288
-    ClientWidth = 292
+    ClientHeight = 478
+    ClientWidth = 372
     TabOrder = 0
     object currentCard: TImage
-      Left = 54
-      Height = 216
+      Left = 94
+      Height = 320
       Top = 25
       Width = 210
     end
   end
   object Gracze: TGroupBox[1]
-    Left = 496
-    Height = 289
-    Top = 56
-    Width = 209
+    Left = 376
+    Height = 495
+    Top = 0
+    Width = 359
+    Align = alRight
     Caption = 'Gracze'
-    ClientHeight = 272
-    ClientWidth = 205
+    ClientHeight = 478
+    ClientWidth = 355
     TabOrder = 1
     object players_list: TListBox
-      Left = 14
-      Height = 232
-      Top = 17
-      Width = 172
+      Left = 22
+      Height = 432
+      Top = 25
+      Width = 312
       ItemHeight = 0
-      ScrollWidth = 168
+      ScrollWidth = 308
       TabOrder = 0
       TopIndex = -1
     end
@@ -72,5 +74,10 @@ inherited MainWindow: TMainWindow
     object MenuItem2: TMenuItem
       Caption = 'Edycja'
     end
+  end
+  object aiTimer: TTimer[3]
+    OnTimer = aiTimerTimer
+    left = 337
+    top = 80
   end
 end

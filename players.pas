@@ -13,10 +13,13 @@ type Tplayer=object   //WARNING: Object -> dobrze, Class -> SIGSEGV
   public
     name: string;
     id: word;
+    ai: boolean;
     constructor Create();
     procedure addCard(color: word; cardtype: word);
     function getCards() :  Tcards;
 end;
+
+type APlayer=array of Tplayer;
 
 implementation
 
