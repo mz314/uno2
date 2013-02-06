@@ -62,7 +62,7 @@ begin
 
   f:=TmainWindowInterface(mainForm);
 
-  f.startGame(player_name.text,4);
+  f.startGame(player_name.text,strtoint(pcount.text));
  // f.FormActivate(self);
   self.close;
 end;

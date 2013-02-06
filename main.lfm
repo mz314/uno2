@@ -11,8 +11,8 @@ inherited MainWindow: TMainWindow
   AutoSize = True
   Caption = 'UNO'
   ChildSizing.ControlsPerLine = 2
-  ClientHeight = 500
-  ClientWidth = 735
+  ClientHeight = 0
+  ClientWidth = 0
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClick = FormClick

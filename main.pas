@@ -75,7 +75,7 @@ var
  a: APlayer;
 begin
  a:=gameState.getPlayers();
-  for i:=0 to length(a) do
+  for i:=0 to length(a)-1 do
    players_list.AddItem(PChar(a[i].name),nil);
 
 end;
@@ -91,7 +91,8 @@ begin
   if current.ai then
   begin
    aiTimer.enabled:=true;
-  end;
+  end else
+   aiTimer.enabled:=false;
   // lockCards;
  // lockCards;
   selectCurrent;
@@ -184,7 +185,7 @@ end;
 
 procedure TMainWindow.aiTimerTimer(Sender: TObject);
 begin
-  showmessage('test');
+  gameState.aiMove();
 end;
 
 procedure TMainWindow.FormActivate(Sender: TObject);
@@ -223,18 +224,18 @@ begin
    begin
    for i:=0 to length(cards.glyphs)-1 do
     begin
-     cards.glyphs[i].Destroy();
+       cards.glyphs[i].visible:=false;
+       //cards.glyphs[i].Destroy();
     end;
    end;
    current_player:=gameState.getHumanPlayer;
-//  showmessage(current_player.name);
   player_cards:=current_player.getCards();
   cleft:=if_card_margin_left;
   for i:=0 to length(player_cards)-1 do
    begin
       setLength(cards.glyphs,length(cards.glyphs)+1);
       g:=length(cards.glyphs)-1;
-      cards.glyphs[g]:=TImage.Create(cards);
+      cards.glyphs[g]:=TImage.Create(nil);
       cards.glyphs[g].picture.LoadFromFile(cardToImage(player_cards[i]));
       cards.glyphs[g].width:=if_card_width;
       cards.glyphs[g].height:=if_card_height;

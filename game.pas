@@ -38,6 +38,7 @@ type TGameState=object
     function getCurrentPlayer() : Tplayer;
     function getHumanPlayer() : Tplayer;
     function getState() : TGameStates;
+    procedure aiMove;
     function getPlayers() : Aplayer;
     function stateChanged() : boolean;
     procedure setState(newstate: TGameStates);
@@ -47,6 +48,20 @@ type PGameState=^TGameState;
 
 implementation
 
+procedure TGameState.aiMove;
+var
+  aiplayer: TPlayer;
+  cards: TCards;
+  i: integer;
+begin
+ aiplayer:=_players[current_player];
+ i:=0;
+ while (i<length(cards)) and (not putCard(cards[i]))   do
+  inc(i);
+ if i=length(cards) then playerDraw(1);
+ nextPlayer;
+end;
+
 procedure TGameState.playerDraw(n: integer);
 var
   i: integer;
@@ -54,7 +69,7 @@ var
 begin
  for i:=1 to n do
  begin
-  //showmessage(inttostr(current_player));
+//  showmessage(inttostr(current_player));
   c:=cards_stack.pop();
   _players[current_player].addCard(c.c,c.t);
  end;
@@ -65,6 +80,8 @@ begin
  if (card.t=current_card.t) or (card.c=current_card.c) then
  begin
    current_card:=card;
+   //showmessage(_players[current_player].name);
+   _players[current_player].removeCard(card.c,card.t);
    putCard:=true;
  end else putCard:=false;
 end;
@@ -79,8 +96,10 @@ var
    f: TmainWindowInterface;
 begin
  f:=TmainWindowInterface(mainForm);
- inc(current_player);
-  f.nextMove;
+ if current_player<length(_players)-1 then
+  inc(current_player)
+  else current_player:=0;
+ f.nextMove;
 end;
 
 function TGameState.getPlayers() : Aplayer;
@@ -184,7 +203,7 @@ begin
  tmpPlayer.name:=name;
   tmpPlayer.id:=length(_players);
   tmpPlayer.ai:=ai;
-  if ai then human_player:=tmpPlayer.id;
+  if not ai then human_player:=tmpPlayer.id;
   setLength(_players,length(_players)+1);
   self.randomCards(tmpPlayer);
   _players[length(_players)-1]:=tmpPlayer;
