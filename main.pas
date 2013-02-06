@@ -76,7 +76,7 @@ var
 begin
  a:=gameState.getPlayers();
   for i:=0 to length(a) do
-   players_list.AddItem(a[i].name,nil);
+   players_list.AddItem(PChar(a[i].name),nil);
 
 end;
 

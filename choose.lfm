@@ -7,14 +7,14 @@ object GameChoose: TGameChoose
   ClientHeight = 196
   ClientWidth = 328
   OnClose = FormClose
-  LCLVersion = '1.0.2.0'
+  LCLVersion = '1.0.6.0'
   object GroupBox1: TGroupBox
     Left = 8
     Height = 77
     Top = 72
     Width = 312
     Caption = 'Ilość graczy'
-    ClientHeight = 60
+    ClientHeight = 59
     ClientWidth = 308
     TabOrder = 0
     object pcount: TEdit
@@ -61,7 +61,7 @@ object GameChoose: TGameChoose
     Top = 0
     Width = 312
     Caption = 'Twoje imie'
-    ClientHeight = 47
+    ClientHeight = 46
     ClientWidth = 308
     TabOrder = 3
     object player_name: TEdit

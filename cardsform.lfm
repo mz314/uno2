@@ -1,7 +1,7 @@
 object cardsWindow: TcardsWindow
-  Left = 225
+  Left = 283
   Height = 316
-  Top = 398
+  Top = 227
   Width = 1017
   Caption = 'Twoje Karty'
   ClientHeight = 316
@@ -9,7 +9,7 @@ object cardsWindow: TcardsWindow
   OnClose = FormClose
   OnHide = FormHide
   PopupMode = pmAuto
-  LCLVersion = '1.0.2.0'
+  LCLVersion = '1.0.6.0'
   object drawButton: TButton
     Left = 880
     Height = 179
