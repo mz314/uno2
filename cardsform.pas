@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, game,
-  ExtCtrls, StdCtrls, main_definitions, cards;
+  ExtCtrls, StdCtrls, main_definitions, cards,colorChoose;
 
 type
 
@@ -21,6 +21,7 @@ type
   private
 
   public
+    colorChooseWindow: TColorChoose;
     mainForm: Pointer;
     glyphs: array of TImage;
     gameState: PGameState;
@@ -47,7 +48,10 @@ begin
     pc:=PCard(tag);
     c:=pc^;
     if gameState^.putCard(c) then
-      gameState^.nextPlayer();
+    begin
+      if (c.t=WILD) or (c.t=DRAWFOURWIRD) then colorChooseWindow.Show
+      else gameState^.nextPlayer;
+    end;
   end;
 
 end;

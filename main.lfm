@@ -1,7 +1,7 @@
 inherited MainWindow: TMainWindow
-  Left = 315
+  Left = 331
   Height = 537
-  Top = 115
+  Top = 130
   Width = 741
   HorzScrollBar.Page = 741
   VertScrollBar.Page = 517
@@ -34,6 +34,20 @@ inherited MainWindow: TMainWindow
       Height = 320
       Top = 25
       Width = 210
+    end
+    object reqColor: TLabel
+      Left = 126
+      Height = 38
+      Top = 376
+      Width = 104
+      Caption = 'reqColor'
+      Font.CharSet = EASTEUROPE_CHARSET
+      Font.Height = -32
+      Font.Name = 'Arial Narrow'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentColor = False
+      ParentFont = False
     end
   end
   object Gracze: TGroupBox[1]

@@ -23,6 +23,8 @@ type TGameState=object
     current_player,human_player: word;
     current_card: Tcard;
     cards_stack: Tstack;
+    reqSkip: boolean;
+    reqColor: integer; // -1 dla braku
     procedure randomCards(p: word);
     procedure initStack();
  public
@@ -30,6 +32,9 @@ type TGameState=object
     constructor Create();
     procedure addPlayer(name: string; ai: boolean);
     procedure nextPlayer;
+    procedure iteratePlayer;  // powiększa licznik do następnego gracza
+    function getSkip : boolean;  // sprawdza czy poprzednia karta nie opuszcza gracza
+    function getColor : integer; // sprawdza, czy poprzedni gracz nie wybral koloru
     function drawCard() : Tcard;
     function peekCard() : Pcard;
     procedure setCard(card: Tcard);  //ustawia aktualną kartę
@@ -48,6 +53,18 @@ type PGameState=^TGameState;
 
 implementation
 
+function TgameState.getSkip : boolean;
+begin
+ getSkip:=reqSkip;
+ reqSkip:=false;
+end;
+
+function TGameState.getColor : integer;
+begin
+ getColor:=reqColor;
+ reqColor:=-1;
+end;
+
 procedure TGameState.aiMove;
 var
   aiplayer: TPlayer;
@@ -60,7 +77,6 @@ begin
  n:=length(cards);
  while (i<n) and (not putCard(cards[i]))   do
   inc(i);
-// showmessage(inttostr(i)+' '+inttostr(n));
  if i=n then
  begin
    playerDraw(1);
@@ -95,14 +111,24 @@ begin
   current_card:=card;
 end;
 
+procedure TGameState.iteratePlayer;
+begin
+ if current_player<length(_players)-1 then
+  inc(current_player)
+  else current_player:=0;
+end;
+
 procedure TGameState.nextPlayer;
 var
    f: TmainWindowInterface;
 begin
  f:=TmainWindowInterface(mainForm);
- if current_player<length(_players)-1 then
-  inc(current_player)
-  else current_player:=0;
+ iteratePlayer;
+ if getSkip then
+ begin
+   iteratePlayer;
+   showmessage(_players[current_player].name);
+ end;
  f.nextMove;
 end;
 

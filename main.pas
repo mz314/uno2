@@ -8,7 +8,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls,
-  choose, game,cardsform,main_definitions,cards,players,layout;
+  choose, game,cardsform,main_definitions,cards,players,layout,colorChoose;
 
 type
 
@@ -18,6 +18,7 @@ type
     currentCard: TImage;
     GroupBox1: TGroupBox;
     Gracze: TGroupBox;
+    reqColor: TLabel;
     players_list: TListBox;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
@@ -52,6 +53,7 @@ type
 var
   MainWindow: TMainWindow;
   gameState: TGameState;
+  colorChooseWindow: TColorChoose;
 
 implementation
 
@@ -135,9 +137,12 @@ begin
   randomize;
   gameState.Create();
   choose:=TGameChoose.Create(self);
+  colorChooseWindow:=TColorChoose.Create(self);
   choose.gameState:=@gameState;
+  colorChooseWindow.gameState:=@gameState;
   cards:=TcardsWindow.Create(self);
   cards.gameState:=@gameState;
+  cards.colorChooseWindow:=colorChooseWindow;
    f:=self;
    choose.mainForm:=f;
    cards.mainForm:=f;

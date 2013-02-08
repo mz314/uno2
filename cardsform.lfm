@@ -1,7 +1,7 @@
 object cardsWindow: TcardsWindow
-  Left = 283
+  Left = 198
   Height = 316
-  Top = 227
+  Top = 352
   Width = 1017
   Caption = 'Twoje Karty'
   ClientHeight = 316
