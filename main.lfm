@@ -1,18 +1,18 @@
 inherited MainWindow: TMainWindow
   Left = 315
-  Height = 520
+  Height = 537
   Top = 115
-  Width = 735
-  HorzScrollBar.Page = 735
-  VertScrollBar.Page = 500
+  Width = 741
+  HorzScrollBar.Page = 741
+  VertScrollBar.Page = 517
   Align = alTop
   Anchors = []
   AutoScroll = True
   AutoSize = True
   Caption = 'UNO'
   ChildSizing.ControlsPerLine = 2
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 517
+  ClientWidth = 741
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClick = FormClick
@@ -21,12 +21,12 @@ inherited MainWindow: TMainWindow
   PopupMode = pmAuto
   object GroupBox1: TGroupBox[0]
     Left = 0
-    Height = 500
+    Height = 517
     Top = 0
     Width = 376
     Align = alLeft
     Caption = 'Karta'
-    ClientHeight = 482
+    ClientHeight = 499
     ClientWidth = 372
     TabOrder = 0
     object currentCard: TImage
@@ -37,13 +37,13 @@ inherited MainWindow: TMainWindow
     end
   end
   object Gracze: TGroupBox[1]
-    Left = 376
-    Height = 500
+    Left = 382
+    Height = 517
     Top = 0
     Width = 359
     Align = alRight
     Caption = 'Gracze'
-    ClientHeight = 482
+    ClientHeight = 499
     ClientWidth = 355
     TabOrder = 1
     object players_list: TListBox

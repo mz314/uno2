@@ -17,10 +17,16 @@ constructor create;
     procedure push(card: Tcard);
     procedure shuffle; //miesza karty
     function pop() : Tcard;
+    function stackCount : word;
 
 end;
 
 implementation
+
+function Tstack.stackCount : word;
+begin
+ stackCount:=length(data);
+end;
 
 procedure Tstack.shuffle;
 var

@@ -9,8 +9,9 @@ uses
 
 type Tplayer=object   //WARNING: Object -> dobrze, Class -> SIGSEGV
   private
-    cards: Tcards;
+
   public
+    cards: Tcards;
     name: string;
     id: word;
     ai: boolean;
@@ -31,8 +32,6 @@ begin
  i:=0;
  while (cards[i].c<>c) or (cards[i].t<>t)  do
   inc(i);
- showmessage(inttostr(i));
- //if i=length(cards) then exit;
  for n:=i+1 to length(cards)-1 do
   cards[n-1]:=cards[n];
  setLength(cards,length(cards)-1);

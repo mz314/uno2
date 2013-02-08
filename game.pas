@@ -23,7 +23,7 @@ type TGameState=object
     current_player,human_player: word;
     current_card: Tcard;
     cards_stack: Tstack;
-    procedure randomCards(var p: Tplayer);
+    procedure randomCards(p: word);
     procedure initStack();
  public
     mainForm: Pointer;
@@ -52,13 +52,19 @@ procedure TGameState.aiMove;
 var
   aiplayer: TPlayer;
   cards: TCards;
-  i: integer;
+  i,n: integer;
 begin
  aiplayer:=_players[current_player];
  i:=0;
- while (i<length(cards)) and (not putCard(cards[i]))   do
+ cards:=_players[current_player].getCards;
+ n:=length(cards);
+ while (i<n) and (not putCard(cards[i]))   do
   inc(i);
- if i=length(cards) then playerDraw(1);
+// showmessage(inttostr(i)+' '+inttostr(n));
+ if i=n then
+ begin
+   playerDraw(1);
+ end;
  nextPlayer;
 end;
 
@@ -69,7 +75,6 @@ var
 begin
  for i:=1 to n do
  begin
-//  showmessage(inttostr(current_player));
   c:=cards_stack.pop();
   _players[current_player].addCard(c.c,c.t);
  end;
@@ -80,7 +85,6 @@ begin
  if (card.t=current_card.t) or (card.c=current_card.c) then
  begin
    current_card:=card;
-   //showmessage(_players[current_player].name);
    _players[current_player].removeCard(card.c,card.t);
    putCard:=true;
  end else putCard:=false;
@@ -133,6 +137,7 @@ begin
   end;
  end;
  cards_stack.shuffle;
+// showmessage(inttostr(cards_stack.stackCount));
 end;
 
 function TGameState.getCurrentPlayer() : Tplayer;
@@ -179,34 +184,31 @@ begin
   getState:=self.state;
 end;
 
-procedure TgameState.randomCards(var p: Tplayer);
+procedure TgameState.randomCards(p: word);
 var
  tmpCard: Tcard;
  t,c,i: word;
 begin
-
  for i:=1 to n_cards do
  begin
   tmpCard:=cards_stack.pop();
-
- //tmpCard.t:=cardtype_array[t];
-// tmpCard.c:=CG;
- p.addCard(tmpCard.c,tmpCard.t);
+  _players[p].addCard(tmpCard.c,tmpCard.t);
  end;
+// showmessage(inttostr(length(_players[p].cards));
 end;
 
 procedure TgameState.addPlayer(name: string; ai: boolean);
 var
   tmpPlayer: Tplayer;
 begin
- // showmessage('randomCards');
- tmpPlayer.name:=name;
+  tmpPlayer.name:=name;
   tmpPlayer.id:=length(_players);
   tmpPlayer.ai:=ai;
   if not ai then human_player:=tmpPlayer.id;
   setLength(_players,length(_players)+1);
-  self.randomCards(tmpPlayer);
   _players[length(_players)-1]:=tmpPlayer;
+  self.randomCards(length(_players)-1);
+
 end;
 
 end.
