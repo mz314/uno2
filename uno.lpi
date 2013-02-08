@@ -109,6 +109,7 @@
         <Filename Value="colorchoose.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="colorChoose"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="colorChoose"/>
       </Unit11>

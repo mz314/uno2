@@ -35,6 +35,7 @@ type TGameState=object
     procedure iteratePlayer;  // powiększa licznik do następnego gracza
     function getSkip : boolean;  // sprawdza czy poprzednia karta nie opuszcza gracza
     function getColor : integer; // sprawdza, czy poprzedni gracz nie wybral koloru
+    procedure setColor(i: integer); // ustawia kolor
     function drawCard() : Tcard;
     function peekCard() : Pcard;
     procedure setCard(card: Tcard);  //ustawia aktualną kartę
@@ -52,6 +53,11 @@ end;
 type PGameState=^TGameState;
 
 implementation
+
+procedure TGameState.setColor(i: integer);
+begin
+ reqColor:=i;
+end;
 
 function TgameState.getSkip : boolean;
 begin
@@ -80,6 +86,10 @@ begin
  if i=n then
  begin
    playerDraw(1);
+ end else
+ begin
+   if (cards[i].t=WILD) or (cards[i].t=DRAWFOURWIRD) then
+    reqColor:=1+random(3);
  end;
  nextPlayer;
 end;
@@ -98,10 +108,12 @@ end;
 
 function TGameState.putCard(card: TCard) : boolean;
 begin
- if (card.t=current_card.t) or (card.c=current_card.c) then
+ if (card.t=current_card.t) or (card.c=current_card.c) or (card.t=WILD) or
+    (card.t=DRAWFOURWIRD) then
  begin
    current_card:=card;
    _players[current_player].removeCard(card.c,card.t);
+   reqSkip:=true;
    putCard:=true;
  end else putCard:=false;
 end;
@@ -127,7 +139,7 @@ begin
  if getSkip then
  begin
    iteratePlayer;
-   showmessage(_players[current_player].name);
+ //  showmessage(_players[current_player].name);
  end;
  f.nextMove;
 end;

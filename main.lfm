@@ -11,8 +11,8 @@ inherited MainWindow: TMainWindow
   AutoSize = True
   Caption = 'UNO'
   ChildSizing.ControlsPerLine = 2
-  ClientHeight = 517
-  ClientWidth = 741
+  ClientHeight = 0
+  ClientWidth = 0
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClick = FormClick
@@ -36,9 +36,9 @@ inherited MainWindow: TMainWindow
       Width = 210
     end
     object reqColor: TLabel
-      Left = 126
+      Left = 142
       Height = 38
-      Top = 376
+      Top = 392
       Width = 104
       Caption = 'reqColor'
       Font.CharSet = EASTEUROPE_CHARSET

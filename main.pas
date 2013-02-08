@@ -41,7 +41,7 @@ type
     procedure lockCards; //blokuje możliwość gry na czas gry AI
     function cardToImage(c: Tcard) : string; //Przyporządkowuje plik graficzny do karty
     procedure refreshCard; //odświerza kartę
-
+    procedure showColorReq;
     procedure showPlayerList;
     procedure selectCurrent; //zaznacza bieżącego gracza
     { private declarations }
@@ -61,6 +61,20 @@ implementation
 
 { TMainWindow }
 
+procedure TMainWindow.showColorReq;
+var
+ lbl: string;
+begin
+  case gameState.getColor of
+    CR: lbl:='Czerwony';
+    CG: lbl:='Zielony';
+    CB: lbl:='Niebieski';
+    CY: lbl:='Żólty';
+    else lbl:='';
+  end;
+  reqColor.caption:=lbl;
+end;
+
 procedure TMainWindow.refreshCard;
 var
  c: TCard;
@@ -75,11 +89,15 @@ procedure TMainWindow.showPlayerList;
 var
  i,n: integer;
  a: APlayer;
+ pcards: TCards;
 begin
  a:=gameState.getPlayers();
-  for i:=0 to length(a)-1 do
-   players_list.AddItem(PChar(a[i].name),nil);
-
+ players_list.Clear;
+ for i:=0 to length(a)-1 do
+   begin
+    pcards:=a[i].getCards;
+    players_list.AddItem(PChar(a[i].name)+' '+inttostr(length(pcards)),nil);
+   end;
 end;
 
 procedure TMainWindow.nextMove;
@@ -97,9 +115,11 @@ begin
    aiTimer.enabled:=false;
   // lockCards;
  // lockCards;
-  selectCurrent;
-  refreshCard;
 
+  refreshCard;
+  showColorReq;
+  showPlayerList;
+  selectCurrent;
 end;
 
 procedure TMainWindow.selectCurrent;
