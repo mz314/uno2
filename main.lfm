@@ -11,8 +11,8 @@ inherited MainWindow: TMainWindow
   AutoSize = True
   Caption = 'UNO'
   ChildSizing.ControlsPerLine = 2
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 517
+  ClientWidth = 741
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClick = FormClick
@@ -71,8 +71,8 @@ inherited MainWindow: TMainWindow
     end
   end
   object MainMenu1: TMainMenu[2]
-    left = 72
-    top = 48
+    left = 337
+    top = 24
     object MenuItem1: TMenuItem
       Caption = 'Plik'
       object newgame: TMenuItem

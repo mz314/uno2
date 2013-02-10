@@ -25,6 +25,7 @@ type TGameState=object
     cards_stack: Tstack;
     reqSkip: boolean;
     reqColor: integer; // -1 dla braku
+    lastput: TCard; //ostatnio polożona karta
     procedure randomCards(p: word);
     procedure initStack();
  public
@@ -88,8 +89,9 @@ begin
    playerDraw(1);
  end else
  begin
-   if (cards[i].t=WILD) or (cards[i].t=DRAWFOURWIRD) then
-    reqColor:=1+random(3);
+  //showmessage(inttostr(lastput.t));
+  if (lastput.t=WILD) or (lastput.t=DRAWFOURWIRD) then
+    begin setColor(1+random(3)); end
  end;
  nextPlayer;
 end;
@@ -107,13 +109,23 @@ begin
 end;
 
 function TGameState.putCard(card: TCard) : boolean;
+var
+  color_ok: boolean;
 begin
- if (card.t=current_card.t) or (card.c=current_card.c) or (card.t=WILD) or
+ color_ok:=false;
+ if (reqcolor<1) then
+  begin if current_card.c=card.c then color_ok:=true; end
+ else
+  if card.c=reqColor then color_ok:=true;
+
+ if (((card.t=current_card.t) or (color_ok)) and ((reqColor<1) or (color_ok))) or (card.t=WILD) or
     (card.t=DRAWFOURWIRD) then
  begin
+   lastput:=card;
    current_card:=card;
    _players[current_player].removeCard(card.c,card.t);
-   reqSkip:=true;
+   if card.t=SKIP then
+    reqSkip:=true;
    putCard:=true;
  end else putCard:=false;
 end;

@@ -64,13 +64,15 @@ implementation
 procedure TMainWindow.showColorReq;
 var
  lbl: string;
+ c: integer;
 begin
-  case gameState.getColor of
+  c:=gameState.getColor;
+  case c of
     CR: lbl:='Czerwony';
     CG: lbl:='Zielony';
     CB: lbl:='Niebieski';
     CY: lbl:='Żólty';
-    else lbl:='';
+    else lbl:=inttostr(c);
   end;
   reqColor.caption:=lbl;
 end;
