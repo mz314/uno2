@@ -68,10 +68,11 @@ var
 begin
   c:=gameState.getColor;
   case c of
-    CR: lbl:='Czerwony';
-    CG: lbl:='Zielony';
-    CB: lbl:='Niebieski';
-    CY: lbl:='Żólty';
+    //CR: lbl:='Czerwony';
+    //CG: lbl:='Zielony';
+    //CB: lbl:='Niebieski';
+    //CY: lbl:='Żólty';
+   666: lbl:='test';
     else lbl:=inttostr(c);
   end;
   reqColor.caption:=lbl;
@@ -107,8 +108,6 @@ var
   current: TPlayer;
 begin
   current:=gameState.getCurrentPlayer();
-  //gameState.drawCard();
-  //if not current.ai then  //ale będzie problem, jeżeli gra zaczyna się od AI
    showCards()  ;
   if current.ai then
   begin
@@ -129,7 +128,6 @@ var
   current: TPlayer;
 begin
  current:=gameState.getCurrentPlayer();
-  //current:=gameState.getCurrentPlayer();
  players_list.ItemIndex:=current.id;
 end;
 
@@ -169,7 +167,6 @@ begin
    choose.mainForm:=f;
    cards.mainForm:=f;
    gameState.mainForm:=f;
-   //p:=@self.startGame;
    aiTimer.Enabled:=false;
 end;
 
@@ -198,7 +195,6 @@ begin
 
     end else
     begin
-     // logo.visible:=true;
       endgame.Enabled:=false;
        newgame.enabled:=true;
     end;
@@ -217,8 +213,7 @@ end;
 
 procedure TMainWindow.FormActivate(Sender: TObject);
 begin
-  //showmessage('test');
- //self.startGame();
+
 end;
 
 procedure TMainWindow.endgameClick(Sender: TObject);
@@ -272,12 +267,10 @@ begin
       cards.glyphs[g].parent:=cards;
      p:=@(player_cards[i]);
      player_cards[i]:=p^;
-     //if p=nil then showmessage('nil');
-
      cards.glyphs[g].Tag:=PtrInt(p);
-         cards.glyphs[g].OnPaint:=@cards.drawNumber;
-      cards.glyphs[g].enabled:=true;
-      cards.glyphs[g].OnClick:=@cards.cardClicked;
+     cards.glyphs[g].OnPaint:=@cards.drawNumber;
+     cards.glyphs[g].enabled:=true;
+     cards.glyphs[g].OnClick:=@cards.cardClicked;
    end;
 end;
 

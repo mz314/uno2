@@ -127,12 +127,13 @@ var
 begin
  color_ok:=false;
  if (reqcolor<1) then
-  begin if current_card.c=card.c then color_ok:=true; end
- else
+ begin
+   if current_card.c=card.c then color_ok:=true;
+ end else
   if card.c=reqColor then color_ok:=true;
 
- if (((card.t=current_card.t) or (color_ok)) and ((reqColor<1) or (color_ok))) or (card.t=WILD) or
-    (card.t=DRAWFOURWIRD) then
+ if ((card.t=current_card.t) or (color_ok) or (card.t=WILD) or
+    (card.t=DRAWFOURWIRD)) then
  begin
    lastput:=card;
    current_card:=card;
@@ -233,6 +234,8 @@ begin
 end;
 
 constructor TGameState.Create();
+var
+ ok: boolean;
 begin
  current_player:=0;
  self.state_changed:=false;
@@ -240,7 +243,16 @@ begin
  self.cards_stack.create();
  self.initStack();
  forward_dir:=true;
- current_card:=cards_stack.pop;
+ ok:=true;
+ repeat
+  current_card:=cards_stack.pop;
+  if (current_card.t=WILD) or (current_card.t=DRAWFOURWIRD) or (current_card.t=SKIP) or (current_card.t=DRAW2) then
+  begin
+   ok:=false;
+   cards_stack.push(current_card);
+   cards_stack.shuffle;
+  end else ok:=true;
+ until ok;
 end;
 
 
