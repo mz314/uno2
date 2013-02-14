@@ -27,7 +27,7 @@ type TGameState=object
     reqSkip: boolean;
     reqColor: integer; // -1 dla braku
     lastput: TCard; //ostatnio polożona karta
-    procedure randomCards(p: word);
+    procedure randomCards(p: word; debug: boolean);
     procedure initStack();
  public
     mainForm: Pointer;
@@ -71,7 +71,7 @@ end;
 function TGameState.getColor : integer;
 begin
  getColor:=reqColor;
- reqColor:=-1;
+ //reqColor:=-1;
 end;
 
 procedure TGameState.aiMove;
@@ -126,14 +126,12 @@ var
   tmpcard: TCard;
 begin
  color_ok:=false;
- if (reqcolor<1) then
- begin
-   if current_card.c=card.c then color_ok:=true;
- end else
-  if card.c=reqColor then color_ok:=true;
-
- if ((card.t=current_card.t) or (color_ok) or (card.t=WILD) or
-    (card.t=DRAWFOURWIRD)) then
+ if (reqcolor<1) and (current_card.c=card.c) then color_ok:=true
+ else begin
+ if card.c=reqColor then color_ok:=true;
+end;
+ if (card.t=current_card.t) or (color_ok) or (card.t=WILD) or
+    (card.t=DRAWFOURWIRD) then
  begin
    lastput:=card;
    current_card:=card;
@@ -151,6 +149,8 @@ begin
    if card.t=SKIP then
     reqSkip:=true;
    putCard:=true;
+   if (reqColor>0) then
+    reqColor:=-1;
  end else putCard:=false;
 end;
 
@@ -278,14 +278,22 @@ begin
   getState:=self.state;
 end;
 
-procedure TgameState.randomCards(p: word);
+procedure TgameState.randomCards(p: word; debug: boolean);
 var
  tmpCard: Tcard;
  t,c,i: word;
 begin
+ if debug then
+  showmessage(_players[p].name);
  for i:=1 to n_cards do
  begin
-  tmpCard:=cards_stack.pop();
+  if not debug then
+  tmpCard:=cards_stack.pop()
+  else
+  begin
+   tmpCard.c:=1;
+   tmpCard.t:=WILD;
+  end;
   _players[p].addCard(tmpCard.c,tmpCard.t);
  end;
 // showmessage(inttostr(length(_players[p].cards));
@@ -301,7 +309,9 @@ begin
   if not ai then human_player:=tmpPlayer.id;
   setLength(_players,length(_players)+1);
   _players[length(_players)-1]:=tmpPlayer;
-  self.randomCards(length(_players)-1);
+  if length(_players)=5 then
+   self.randomCards(length(_players)-1,true)
+  else self.randomCards(length(_players)-1,false);
 
 end;
 

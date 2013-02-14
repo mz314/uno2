@@ -68,11 +68,11 @@ var
 begin
   c:=gameState.getColor;
   case c of
-    //CR: lbl:='Czerwony';
-    //CG: lbl:='Zielony';
-    //CB: lbl:='Niebieski';
-    //CY: lbl:='Żólty';
-   666: lbl:='test';
+    CR: lbl:='Czerwony';
+    CG: lbl:='Zielony';
+    CB: lbl:='Niebieski';
+    CY: lbl:='Żólty';
+  // 666: lbl:='test';
     else lbl:=inttostr(c);
   end;
   reqColor.caption:=lbl;
