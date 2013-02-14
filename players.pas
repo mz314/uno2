@@ -14,16 +14,23 @@ type Tplayer=object   //WARNING: Object -> dobrze, Class -> SIGSEGV
     cards: Tcards;
     name: string;
     id: word;
-    ai: boolean;
+    ai,off: boolean;
+
     constructor Create();
     procedure addCard(color: word; cardtype: word);
     procedure removeCard(c: integer;t: integer); //wyszukuje i usuwa kartę
     function getCards() :  Tcards;
+    function countCards : integer;
 end;
 
 type APlayer=array of Tplayer;
 
 implementation
+
+function TPlayer.countCards : integer;
+begin
+ countCards:=length(cards);
+end;
 
 procedure TPlayer.removeCard(c: integer; t: integer);
 var
@@ -56,7 +63,7 @@ end;
 
 constructor TPlayer.Create();
 begin
-
+ off:=false;
 end;
 
 end.

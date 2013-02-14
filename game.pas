@@ -20,7 +20,7 @@ type TGameState=object
     state_changed: boolean  ;
     state: TGameStates;
     _players: array of Tplayer;
-    current_player,human_player: word;
+    current_player,human_player,off_players: word;
     current_card: Tcard;
     cards_stack: Tstack;
     forward_dir: boolean;
@@ -161,6 +161,8 @@ end;
 
 procedure TGameState.iteratePlayer;
 begin
+ if off_players<length(_players)-1 then
+ begin
  if forward_dir then
  begin
  if current_player<length(_players)-1 then
@@ -173,6 +175,8 @@ begin
    else
     current_player:=length(_players)-1;
  end;
+ if _players[current_player].off then iteratePlayer;
+ end;
 end;
 
 procedure TGameState.nextPlayer;
@@ -180,6 +184,11 @@ var
    f: TmainWindowInterface;
 begin
  f:=TmainWindowInterface(mainForm);
+ if _players[current_player].countCards=0 then
+ begin
+  _players[current_player].off:=true;
+  inc(off_players);
+ end;
  iteratePlayer;
  if getSkip then
  begin
@@ -237,6 +246,7 @@ constructor TGameState.Create();
 var
  ok: boolean;
 begin
+ off_players:=0;
  current_player:=0;
  self.state_changed:=false;
  self.state:=idle;
@@ -283,8 +293,6 @@ var
  tmpCard: Tcard;
  t,c,i: word;
 begin
- if debug then
-  showmessage(_players[p].name);
  for i:=1 to n_cards do
  begin
   if not debug then
@@ -296,22 +304,22 @@ begin
   end;
   _players[p].addCard(tmpCard.c,tmpCard.t);
  end;
-// showmessage(inttostr(length(_players[p].cards));
 end;
 
 procedure TgameState.addPlayer(name: string; ai: boolean);
 var
   tmpPlayer: Tplayer;
 begin
+  tmpPlayer.Create;
   tmpPlayer.name:=name;
   tmpPlayer.id:=length(_players);
   tmpPlayer.ai:=ai;
   if not ai then human_player:=tmpPlayer.id;
   setLength(_players,length(_players)+1);
   _players[length(_players)-1]:=tmpPlayer;
-  if length(_players)=5 then
+{  if length(_players)=5 then
    self.randomCards(length(_players)-1,true)
-  else self.randomCards(length(_players)-1,false);
+  else} self.randomCards(length(_players)-1,false);
 
 end;
 
