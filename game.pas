@@ -23,6 +23,7 @@ type TGameState=object
     current_player,human_player: word;
     current_card: Tcard;
     cards_stack: Tstack;
+    forward_dir: boolean;
     reqSkip: boolean;
     reqColor: integer; // -1 dla braku
     lastput: TCard; //ostatnio polożona karta
@@ -43,6 +44,7 @@ type TGameState=object
     function putCard(card: TCard) : boolean; //gdy gracz kładzie wyrzuca kartę na stos; false gdy karta jest zła
     procedure playerDraw(n: integer);
     function getCurrentPlayer() : Tplayer;
+    function peekNextPlayer : integer;
     function getHumanPlayer() : Tplayer;
     function getState() : TGameStates;
     procedure aiMove;
@@ -89,7 +91,6 @@ begin
    playerDraw(1);
  end else
  begin
-  //showmessage(inttostr(lastput.t));
   if (lastput.t=WILD) or (lastput.t=DRAWFOURWIRD) then
     begin setColor(1+random(3)); end
  end;
@@ -108,9 +109,21 @@ begin
  end;
 end;
 
+function TGameState.peekNextPlayer : integer;
+var
+  tmp_current,save_current: integer;
+begin
+ save_current:=current_player;
+ iteratePlayer;
+ tmp_current:=current_player;
+ current_player:=save_current;
+ peekNextPlayer:=tmp_current;
+end;
+
 function TGameState.putCard(card: TCard) : boolean;
 var
   color_ok: boolean;
+  tmpcard: TCard;
 begin
  color_ok:=false;
  if (reqcolor<1) then
@@ -124,6 +137,16 @@ begin
    lastput:=card;
    current_card:=card;
    _players[current_player].removeCard(card.c,card.t);
+   cards_stack.push(card);
+   cards_stack.shuffle;
+   if card.t=REVERSE then
+    forward_dir:=not forward_dir;
+   if card.t=DRAW2 then
+   begin
+     tmpcard:=cards_stack.pop;
+     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
+     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t) ;
+   end;
    if card.t=SKIP then
     reqSkip:=true;
    putCard:=true;
@@ -137,9 +160,18 @@ end;
 
 procedure TGameState.iteratePlayer;
 begin
+ if forward_dir then
+ begin
  if current_player<length(_players)-1 then
   inc(current_player)
   else current_player:=0;
+ end else
+ begin
+   if current_player>0 then
+    dec(current_player)
+   else
+    current_player:=length(_players)-1;
+ end;
 end;
 
 procedure TGameState.nextPlayer;
@@ -151,7 +183,6 @@ begin
  if getSkip then
  begin
    iteratePlayer;
- //  showmessage(_players[current_player].name);
  end;
  f.nextMove;
 end;
@@ -208,6 +239,7 @@ begin
  self.state:=idle;
  self.cards_stack.create();
  self.initStack();
+ forward_dir:=true;
  current_card:=cards_stack.pop;
 end;
 
