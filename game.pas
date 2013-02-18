@@ -39,6 +39,7 @@ type TGameState=object
     function getColor : integer; // sprawdza, czy poprzedni gracz nie wybral koloru
     procedure setColor(i: integer); // ustawia kolor
     function drawCard() : Tcard;
+    procedure incrementCards(n: integer);
     function peekCard() : Pcard;
     procedure setCard(card: Tcard);  //ustawia aktualną kartę
     function putCard(card: TCard) : boolean; //gdy gracz kładzie wyrzuca kartę na stos; false gdy karta jest zła
@@ -120,6 +121,17 @@ begin
  peekNextPlayer:=tmp_current;
 end;
 
+procedure TGameState.incrementCards(n: integer);
+var
+  i: integer;
+begin
+ for i:=1 to n do
+ begin
+    tmpcard:=cards_stack.pop;
+   _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
+ end;
+end;
+
 function TGameState.putCard(card: TCard) : boolean;
 var
   color_ok: boolean;
@@ -130,6 +142,11 @@ begin
  else begin
  if card.c=reqColor then color_ok:=true;
 end;
+  if (reqFour) and (card.t<>DRAWFOURWIRD) then
+   begin
+     reqFour:=false;
+     incrementCards(4);
+   end else
  if (card.t=current_card.t) or (color_ok) or (card.t=WILD) or
     (card.t=DRAWFOURWIRD) then
  begin
@@ -138,24 +155,13 @@ end;
    _players[current_player].removeCard(card.c,card.t,@cards_stack);
    cards_stack.push(card);
    cards_stack.shuffle;
-   if (reqFour) and (card.t<>DRAWFOURWIRD) then
-   begin
-     reqFour:=false;
-     tmpcard:=cards_stack.pop;
-     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
-     tmpcard:=cards_stack.pop;
-     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
-     tmpcard:=cards_stack.pop;
-     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
-     tmpcard:=cards_stack.pop;
-     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
-   end;
+
    if card.t=DRAWFOURWIRD then
     reqFour:=true
    else reqFour:=false;
    if card.t=REVERSE then
     forward_dir:=not forward_dir;
-   if card.t=DRAW2 then
+   if card.t=DRAW2 then     //trzeba sprawdzać, czy następny nie ma +2
    begin
      tmpcard:=cards_stack.pop;
      _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
