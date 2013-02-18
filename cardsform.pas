@@ -92,6 +92,7 @@ end;
 
 procedure TcardsWindow.drawButtonClick(Sender: TObject);
 begin
+ // self.autosize:=true;
   gameState^.playerDraw(1);
   gameState^.nextPlayer;
 end;

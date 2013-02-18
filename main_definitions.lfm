@@ -3,5 +3,5 @@ object mainWindowInterface: TmainWindowInterface
   Height = 240
   Top = 0
   Width = 320
-  LCLVersion = '1.0.2.0'
+  LCLVersion = '1.0.6.0'
 end

@@ -51,6 +51,7 @@ type
     { private declarations }
   public
         procedure nextMove;  override;
+        procedure endCurrentGame; override;
     { public declarations }
   end;
 
@@ -158,7 +159,7 @@ procedure TMainWindow.cleanForm;
 begin
  groupbox1.visible:=false;
  gracze.visible:=false;
- cards.hide;
+ cards.visible:=false;
 end;
 
 procedure TMainWindow.uncleanForm;
@@ -192,6 +193,11 @@ end;
 procedure TMainWindow.FormPaint(Sender: TObject);
 begin
 
+end;
+procedure TMainWindow.endCurrentGame;
+begin
+  aiTimer.Enabled:=false;
+  cleanForm;
 end;
 
 procedure TMainWindow.startGame(player_name: string; players: word);
@@ -245,6 +251,7 @@ end;
 procedure TMainWindow.endgameClick(Sender: TObject);
 begin
   gameState.setState(idle);
+  endCurrentGame;
 end;
 
 procedure TMainWindow.lockCards(unlock: boolean);
