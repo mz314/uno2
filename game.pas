@@ -24,8 +24,8 @@ type TGameState=object
     current_card: Tcard;
     cards_stack: Tstack;
     forward_dir: boolean;
-    reqSkip,reqFour: boolean;
-    reqColor: integer; // -1 dla braku
+    reqSkip: boolean;
+    reqColor,reqCount: integer; // -1 dla braku
     lastput: TCard; //ostatnio polożona karta
     procedure randomCards(p: word; debug: boolean);
     procedure initStack();
@@ -124,6 +124,7 @@ end;
 procedure TGameState.incrementCards(n: integer);
 var
   i: integer;
+  tmpcard: TCard;
 begin
  for i:=1 to n do
  begin
@@ -142,10 +143,11 @@ begin
  else begin
  if card.c=reqColor then color_ok:=true;
 end;
-  if (reqFour) and (card.t<>DRAWFOURWIRD) then
+  if (reqCount>0) and ((card.t<>DRAWFOURWIRD) or (card.t<>DRAW2))then
    begin
-     reqFour:=false;
-     incrementCards(4);
+    // reqFour:=false;
+     reqCount:=0;
+     incrementCards(reqCount);
    end else
  if (card.t=current_card.t) or (color_ok) or (card.t=WILD) or
     (card.t=DRAWFOURWIRD) then
@@ -156,17 +158,18 @@ end;
    cards_stack.push(card);
    cards_stack.shuffle;
 
-   if card.t=DRAWFOURWIRD then
-    reqFour:=true
-   else reqFour:=false;
+   //if card.t=DRAWFOURWIRD then
+   // reqFour:=true
+   //else reqFour:=false;
    if card.t=REVERSE then
     forward_dir:=not forward_dir;
    if card.t=DRAW2 then     //trzeba sprawdzać, czy następny nie ma +2
    begin
-     tmpcard:=cards_stack.pop;
+    { tmpcard:=cards_stack.pop;
      _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
      tmpcard:=cards_stack.pop;
-     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t) ;
+     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t) ;}
+    reqCount:=reqCount+2;
    end;
    if card.t=SKIP then
     reqSkip:=true;

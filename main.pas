@@ -18,6 +18,7 @@ type
     currentCard: TImage;
     GroupBox1: TGroupBox;
     Gracze: TGroupBox;
+    MenuItem3: TMenuItem;
     reqColor: TLabel;
     players_list: TListBox;
     MainMenu1: TMainMenu;
@@ -28,6 +29,7 @@ type
     aiTimer: TTimer;
     procedure aiTimerTimer(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure players_listSelectionChange(Sender: TObject; User: boolean);
     procedure startGame(player_name: string; players: word); override;
     procedure endgameClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -37,6 +39,8 @@ type
   private
     choose: TGameChoose;
     cards: TcardsWindow;
+    procedure cleanForm;
+    procedure uncleanForm;
     procedure showCards; //wyświetla i odświerza karty gracza
     procedure lockCards(unlock: boolean); //blokuje możliwość gry na czas gry AI
     function cardToImage(c: Tcard) : string; //Przyporządkowuje plik graficzny do karty
@@ -150,6 +154,19 @@ procedure TMainWindow.newgameClick(Sender: TObject);
 begin
     choose.showmodal();
 end;
+procedure TMainWindow.cleanForm;
+begin
+ groupbox1.visible:=false;
+ gracze.visible:=false;
+ cards.hide;
+end;
+
+procedure TMainWindow.uncleanForm;
+begin
+   groupbox1.visible:=true;
+   cards.show();
+ gracze.visible:=true;
+end;
 
 procedure TMainWindow.FormCreate(Sender: TObject);
 var
@@ -169,6 +186,7 @@ begin
    cards.mainForm:=f;
    gameState.mainForm:=f;
    aiTimer.Enabled:=false;
+   cleanForm;
 end;
 
 procedure TMainWindow.FormPaint(Sender: TObject);
@@ -182,7 +200,8 @@ var
 begin
   if (gameState.getState<>idle) then
     begin
-        cards.show();
+
+        uncleanForm;
        endgame.enabled:=true;
        newgame.enabled:=false;
        gameState.addPlayer(player_name,false);
@@ -207,6 +226,12 @@ begin
 
 end;
 
+procedure TMainWindow.players_listSelectionChange(Sender: TObject; User: boolean
+  );
+begin
+
+end;
+
 procedure TMainWindow.aiTimerTimer(Sender: TObject);
 begin
   gameState.aiMove();
@@ -220,7 +245,6 @@ end;
 procedure TMainWindow.endgameClick(Sender: TObject);
 begin
   gameState.setState(idle);
-  self.FormActivate(Sender);
 end;
 
 procedure TMainWindow.lockCards(unlock: boolean);

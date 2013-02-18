@@ -1,7 +1,7 @@
 inherited MainWindow: TMainWindow
-  Left = 331
+  Left = 345
   Height = 537
-  Top = 130
+  Top = 125
   Width = 741
   HorzScrollBar.Page = 741
   VertScrollBar.Page = 517
@@ -66,6 +66,7 @@ inherited MainWindow: TMainWindow
       Top = 25
       Width = 312
       ItemHeight = 0
+      OnSelectionChange = players_listSelectionChange
       ScrollWidth = 308
       TabOrder = 0
     end
@@ -82,6 +83,9 @@ inherited MainWindow: TMainWindow
       object endgame: TMenuItem
         Caption = 'Zakończ grę'
         OnClick = endgameClick
+      end
+      object MenuItem3: TMenuItem
+        Caption = 'Wyjdź'
       end
     end
     object MenuItem2: TMenuItem
