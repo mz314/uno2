@@ -5,7 +5,7 @@ unit players;
 interface
 
 uses
-  Classes, SysUtils,cards, Dialogs;
+  Classes, SysUtils,cards, Dialogs,stack;
 
 type Tplayer=object   //WARNING: Object -> dobrze, Class -> SIGSEGV
   private
@@ -18,7 +18,7 @@ type Tplayer=object   //WARNING: Object -> dobrze, Class -> SIGSEGV
 
     constructor Create();
     procedure addCard(color: word; cardtype: word);
-    procedure removeCard(c: integer;t: integer); //wyszukuje i usuwa kartę
+    procedure removeCard(c: integer;t: integer; stack: PStack); //wyszukuje i usuwa kartę
     function getCards() :  Tcards;
     function countCards : integer;
 end;
@@ -32,9 +32,10 @@ begin
  countCards:=length(cards);
 end;
 
-procedure TPlayer.removeCard(c: integer; t: integer);
+procedure TPlayer.removeCard(c: integer; t: integer; stack: PStack);
 var
  i,n: integer;
+ tmpcard: TCard;
 begin
  i:=0;
  while (cards[i].c<>c) or (cards[i].t<>t)  do
@@ -42,7 +43,10 @@ begin
  for n:=i+1 to length(cards)-1 do
   cards[n-1]:=cards[n];
  setLength(cards,length(cards)-1);
- //karta powinna wracać na stos
+ tmpcard.c:=c;
+ tmpcard.t:=t;
+ stack^.push(tmpcard);
+ stack^.shuffle;
 end;
 
 function Tplayer.getCards() : Tcards;

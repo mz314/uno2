@@ -21,6 +21,8 @@ constructor create;
 
 end;
 
+type PStack=^TStack;
+
 implementation
 
 function Tstack.stackCount : word;
@@ -33,9 +35,11 @@ var
  tmp: Tcard;
  n,ri: integer;
 begin
-  for n:=0 to length(data) do
+ for n:=0 to length(data)-1 do
   begin
-   ri:=random(length(data));
+    if(data[n].t=0) and (data[n].c=0) then
+     showmessage('Bląd w stosie!');
+   ri:=random(length(data)-1);
    tmp:=data[ri];
    data[ri]:=data[n];
    data[n]:=tmp;
@@ -44,22 +48,22 @@ end;
 
 constructor Tstack.create;
 begin
-  //showmessage('c');
   setLength(data,0);
   i:=0;
 end;
 
 procedure Tstack.push(card: Tcard);
 begin
- setLength(data,i+1);
- data[i]:=card;
- inc(i);
+
+ setLength(data,length(data)+1);
+ data[length(data)-1]:=card;
 end;
 
 function Tstack.pop() : Tcard;
 begin
  if(length(data)>0) then
  begin
+    i:=i-1;
   pop:=data[length(data)-1];
   setLength(data,length(data)-1);
  end;

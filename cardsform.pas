@@ -47,6 +47,7 @@ begin
   begin
     pc:=PCard(tag);
     c:=pc^;
+showmessage(inttostr(c.c)+' '+inttostr(c.t));
     if gameState^.putCard(c) then
     begin
       if (c.t=WILD) or (c.t=DRAWFOURWIRD) then colorChooseWindow.Show
@@ -66,21 +67,19 @@ begin
   t:=Sender as TImage;
   t.canvas.font.size:=24;
   pc:=PCard(t.tag);
- // if pc<>nil then
   c:=pc^;
-//  showmessage(inttostr(c.t));
-  if c.t<10 then
+  if c.t<11 then
   begin
     t.canvas.textout(45,70,inttostr(c.t));
   end
   else
   begin {tymczasowo}
    case c.t of
-    10: t.canvas.textout(45,70,'SKIP');
-    11: t.canvas.textout(45,70,'+2');
-    12: t.canvas.textout(45,70,'<-->');
-    13: t.canvas.textout(45,70,'+4XP');
-    14: t.canvas.textout(45,70,'XP');
+    11: t.canvas.textout(45,70,'SKIP');
+    12: t.canvas.textout(45,70,'+2');
+    13: t.canvas.textout(45,70,'<-->');
+    14: t.canvas.textout(45,70,'+4XP');
+    15: t.canvas.textout(45,70,'XP');
    end;
   end;
 end;

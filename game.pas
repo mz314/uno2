@@ -24,7 +24,7 @@ type TGameState=object
     current_card: Tcard;
     cards_stack: Tstack;
     forward_dir: boolean;
-    reqSkip: boolean;
+    reqSkip,reqFour: boolean;
     reqColor: integer; // -1 dla braku
     lastput: TCard; //ostatnio polożona karta
     procedure randomCards(p: word; debug: boolean);
@@ -135,15 +135,31 @@ end;
  begin
    lastput:=card;
    current_card:=card;
-   _players[current_player].removeCard(card.c,card.t);
+   _players[current_player].removeCard(card.c,card.t,@cards_stack);
    cards_stack.push(card);
    cards_stack.shuffle;
+   if (reqFour) and (card.t<>DRAWFOURWIRD) then
+   begin
+     reqFour:=false;
+     tmpcard:=cards_stack.pop;
+     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
+     tmpcard:=cards_stack.pop;
+     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
+     tmpcard:=cards_stack.pop;
+     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
+     tmpcard:=cards_stack.pop;
+     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
+   end;
+   if card.t=DRAWFOURWIRD then
+    reqFour:=true
+   else reqFour:=false;
    if card.t=REVERSE then
     forward_dir:=not forward_dir;
    if card.t=DRAW2 then
    begin
      tmpcard:=cards_stack.pop;
      _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
+     tmpcard:=cards_stack.pop;
      _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t) ;
    end;
    if card.t=SKIP then
@@ -228,7 +244,6 @@ begin
   end;
  end;
  cards_stack.shuffle;
-// showmessage(inttostr(cards_stack.stackCount));
 end;
 
 function TGameState.getCurrentPlayer() : Tplayer;
@@ -295,13 +310,9 @@ var
 begin
  for i:=1 to n_cards do
  begin
-  if not debug then
-  tmpCard:=cards_stack.pop()
-  else
-  begin
-   tmpCard.c:=1;
-   tmpCard.t:=WILD;
-  end;
+  tmpCard:=cards_stack.pop();
+  //if(not _players[p].ai) then
+  // showmessage(inttostr(tmpCard.t));
   _players[p].addCard(tmpCard.c,tmpCard.t);
  end;
 end;

@@ -38,7 +38,7 @@ type
     choose: TGameChoose;
     cards: TcardsWindow;
     procedure showCards; //wyświetla i odświerza karty gracza
-    procedure lockCards; //blokuje możliwość gry na czas gry AI
+    procedure lockCards(unlock: boolean); //blokuje możliwość gry na czas gry AI
     function cardToImage(c: Tcard) : string; //Przyporządkowuje plik graficzny do karty
     procedure refreshCard; //odświerza kartę
     procedure showColorReq;
@@ -112,11 +112,12 @@ begin
   if current.ai then
   begin
    aiTimer.enabled:=true;
+    lockCards(false);
   end else
+  begin
    aiTimer.enabled:=false;
-  // lockCards;
- // lockCards;
-
+   lockCards(true);
+  end;
   refreshCard;
   showColorReq;
   showPlayerList;
@@ -222,14 +223,14 @@ begin
   self.FormActivate(Sender);
 end;
 
-procedure TMainWindow.lockCards;
+procedure TMainWindow.lockCards(unlock: boolean);
 var
   i,n: word;
 begin
   n:=length(cards.glyphs);
   for i:=0 to n-1 do
   begin
-     cards.glyphs[i].enabled:=false;
+     cards.glyphs[i].enabled:=unlock;
   end;
 end;
 
