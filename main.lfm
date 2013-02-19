@@ -1,7 +1,7 @@
 inherited MainWindow: TMainWindow
-  Left = 494
+  Left = 464
   Height = 401
-  Top = 49
+  Top = 64
   Width = 422
   HorzScrollBar.Page = 510
   HorzScrollBar.Range = 268
@@ -40,6 +40,7 @@ inherited MainWindow: TMainWindow
       Height = 65
       Top = 224
       Width = 153
+      Brush.Color = clForm
     end
   end
   object Gracze: TGroupBox[1]
@@ -84,6 +85,7 @@ inherited MainWindow: TMainWindow
       end
       object MenuItem3: TMenuItem
         Caption = 'Wyjdź'
+        OnClick = MenuItem3Click
       end
     end
     object MenuItem2: TMenuItem

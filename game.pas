@@ -292,7 +292,7 @@ begin
  self.initStack();
  forward_dir:=true;
  ok:=true;
- repeat
+ repeat //zeby nie zaczynac karta specjalna
   current_card:=cards_stack.pop;
   if (current_card.t=WILD) or (current_card.t=DRAWFOURWIRD) or (current_card.t=SKIP) or (current_card.t=DRAW2) then
   begin
@@ -334,8 +334,6 @@ begin
  for i:=1 to n_cards do
  begin
   tmpCard:=cards_stack.pop();
-  //if(not _players[p].ai) then
-  // showmessage(inttostr(tmpCard.t));
   _players[p].addCard(tmpCard.c,tmpCard.t);
  end;
 end;

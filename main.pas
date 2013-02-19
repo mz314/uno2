@@ -31,6 +31,7 @@ type
     StatusBar1: TStatusBar;
     procedure aiTimerTimer(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure players_listSelectionChange(Sender: TObject; User: boolean);
     procedure startGame(player_name: string; players: word); override;
@@ -78,11 +79,7 @@ var
 begin
   c:=gameState.getColor;
   case c of
-   { CR: lbl:='Czerwony';
-    CG: lbl:='Zielony';
-    CB: lbl:='Niebieski';
-    CY: lbl:='Żólty';
-    else lbl:=''; }
+
    CR: begin reqColorBox.visible:=true; reqColorBox.Brush.Color:=clRed; end;
    CG: begin reqColorBox.visible:=true; reqColorBox.Brush.Color:=clGreen; end;
    CB: begin reqColorBox.visible:=true; reqColorBox.Brush.Color:=clBlue; end;
@@ -115,7 +112,7 @@ begin
    begin
     pcards:=a[i].getCards;
     if length(pcards)>0 then
-     players_list.AddItem(PChar(a[i].name)+' '+inttostr(length(pcards)),nil)
+     players_list.AddItem(PChar(a[i].name)+' ma kart: '+inttostr(length(pcards)),nil)
     else
     begin
      if a[i].place=1 then
@@ -129,15 +126,16 @@ end;
 
 procedure TMainWindow.nextMove;
 var
-  current: TPlayer;
+  current,human: TPlayer;
 begin
   current:=gameState.getCurrentPlayer();
-  if ((current.ai=false) and (length(current.cards)=0)) or (gameState.getFinished) then
+  human:=gameState.getHumanPlayer;
+  if (length(human.cards)=0) or (gameState.getFinished) then
   begin
-    if (not current.ai) and (current.place=1) then
+    if (human.place<=1) then
      showmessage('Wygrales!')
     else
-     showmessage('Przegrales :(');
+     showmessage('Koniec gry.');
     gameState.setState(idle);
     endCurrentGame;
   end else
@@ -236,11 +234,18 @@ procedure TMainWindow.FormPaint(Sender: TObject);
 begin
 
 end;
+
 procedure TMainWindow.endCurrentGame;
+var
+f: Pointer;
 begin
   aiTimer.Enabled:=false;
   cleanForm;
   gameState.reset;
+    f:=self;
+   choose.mainForm:=f;
+   cards.mainForm:=f;
+   gameState.mainForm:=f;
   newgame.enabled:=true;
 end;
 
@@ -276,6 +281,11 @@ begin
 
 end;
 
+procedure TMainWindow.MenuItem3Click(Sender: TObject);
+begin
+  close;
+end;
+
 procedure TMainWindow.MenuItem4Click(Sender: TObject);
 begin
   aboutWindow.show;
@@ -301,6 +311,7 @@ procedure TMainWindow.endgameClick(Sender: TObject);
 begin
   gameState.setState(idle);
   endCurrentGame;
+
 end;
 
 procedure TMainWindow.lockCards(unlock: boolean);
