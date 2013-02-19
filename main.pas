@@ -18,6 +18,7 @@ type
     currentCard: TImage;
     GroupBox1: TGroupBox;
     Gracze: TGroupBox;
+    unotext: TLabel;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -197,6 +198,7 @@ begin
  groupbox1.visible:=false;
  gracze.visible:=false;
 // cards.visible:=false;
+unotext.show;
 cards.hide;
 end;
 
@@ -205,6 +207,7 @@ begin
    groupbox1.visible:=true;
    cards.visible:=true;
  gracze.visible:=true;
+ unotext.hide;
 end;
 
 procedure TMainWindow.FormCreate(Sender: TObject);

@@ -1,7 +1,7 @@
 inherited MainWindow: TMainWindow
-  Left = 464
+  Left = 423
   Height = 401
-  Top = 64
+  Top = 163
   Width = 422
   HorzScrollBar.Page = 510
   HorzScrollBar.Range = 268
@@ -70,7 +70,22 @@ inherited MainWindow: TMainWindow
     Width = 422
     Panels = <>
   end
-  object MainMenu1: TMainMenu[3]
+  object unotext: TLabel[3]
+    Left = 88
+    Height = 78
+    Top = 120
+    Width = 240
+    Caption = 'UNO 0.9'
+    Font.CharSet = EASTEUROPE_CHARSET
+    Font.Color = clRed
+    Font.Height = -64
+    Font.Name = 'Tahoma'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object MainMenu1: TMainMenu[4]
     left = 168
     top = 88
     object MenuItem1: TMenuItem
@@ -97,7 +112,7 @@ inherited MainWindow: TMainWindow
       end
     end
   end
-  object aiTimer: TTimer[4]
+  object aiTimer: TTimer[5]
     Enabled = False
     Interval = 2000
     OnTimer = aiTimerTimer

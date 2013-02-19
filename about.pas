@@ -17,6 +17,7 @@ type
     Image1: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { private declarations }
@@ -35,7 +36,12 @@ implementation
 
 procedure Tabout.FormCreate(Sender: TObject);
 begin
-  self.hide;
+
+end;
+
+procedure Tabout.Button1Click(Sender: TObject);
+begin
+    self.hide;
 end;
 
 end.
