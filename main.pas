@@ -113,7 +113,7 @@ var
   current: TPlayer;
 begin
   current:=gameState.getCurrentPlayer();
-   showCards()  ;
+     showCards()  ;
   if current.ai then
   begin
    aiTimer.enabled:=true;
@@ -121,7 +121,9 @@ begin
   end else
   begin
    aiTimer.enabled:=false;
+
    lockCards(true);
+
   end;
   refreshCard;
   showColorReq;
@@ -274,12 +276,12 @@ var
   p: Pcard;
 begin
   {Karty gracza}
+  cards.autoScroll:=false;
   if length(cards.glyphs)>0 then
    begin
    for i:=0 to length(cards.glyphs)-1 do
     begin
        cards.glyphs[i].visible:=false;
-       //cards.glyphs[i].Destroy();
     end;
    end;
    current_player:=gameState.getHumanPlayer;
@@ -304,6 +306,7 @@ begin
      cards.glyphs[g].enabled:=true;
      cards.glyphs[g].OnClick:=@cards.cardClicked;
    end;
+   cards.autoScroll:=true;
 end;
 
 end.
