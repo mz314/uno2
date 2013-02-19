@@ -93,6 +93,8 @@ inherited MainWindow: TMainWindow
     end
   end
   object aiTimer: TTimer[3]
+    Enabled = False
+    Interval = 2000
     OnTimer = aiTimerTimer
     left = 337
     top = 80

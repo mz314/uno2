@@ -47,7 +47,7 @@ begin
   begin
     pc:=PCard(tag);
     c:=pc^;
-showmessage(inttostr(c.c)+' '+inttostr(c.t));
+//showmessage(inttostr(c.c)+' '+inttostr(c.t));
     if gameState^.putCard(c) then
     begin
       if (c.t=WILD) or (c.t=DRAWFOURWIRD) then colorChooseWindow.Show

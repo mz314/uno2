@@ -39,7 +39,7 @@ type TGameState=object
     function getColor : integer; // sprawdza, czy poprzedni gracz nie wybral koloru
     procedure setColor(i: integer); // ustawia kolor
     function drawCard() : Tcard;
-    procedure incrementCards(n: integer);
+    procedure incrementCards(n,uid: integer);
     function peekCard() : Pcard;
     procedure setCard(card: Tcard);  //ustawia aktualną kartę
     function putCard(card: TCard) : boolean; //gdy gracz kładzie wyrzuca kartę na stos; false gdy karta jest zła
@@ -103,18 +103,19 @@ var
   i: integer;
   c: TCard;
 begin
- if reqCount=0 then
- begin
+ if reqCount>0 then
+   begin
+     n:=reqCount;
+     reqCount:=0;
+   end;
+
   for i:=1 to n do
   begin
    c:=cards_stack.pop();
    _players[current_player].addCard(c.c,c.t);
   end;
- end else
- begin
-  incrementCards(reqCount);
-  reqCount:=0;
- end;
+
+
 end;
 
 function TGameState.peekNextPlayer : integer;
@@ -128,7 +129,7 @@ begin
  peekNextPlayer:=tmp_current;
 end;
 
-procedure TGameState.incrementCards(n: integer);
+procedure TGameState.incrementCards(n,uid: integer);
 var
   i: integer;
   tmpcard: TCard;
@@ -150,39 +151,24 @@ begin
  else begin
  if card.c=reqColor then color_ok:=true;
 end;
-  {if (reqCount>0) and ((card.t<>DRAWFOURWIRD) or (card.t<>DRAW2))then
-   begin
-    // reqFour:=false;
-     reqCount:=0;
-     incrementCards(reqCount);
-   end else }
  if ((card.t=current_card.t) or (color_ok) or (card.t=WILD) or
-    (card.t=DRAWFOURWIRD)) and ((reqCount=0) or (current_card.t=DRAW2) or (current_card.t=DRAWFOURWIRD)) then
+    (card.t=DRAWFOURWIRD)) and ((reqCount=0) or (card.t=DRAW2) or (card.t=DRAWFOURWIRD)) then
  begin
    lastput:=card;
- //  before=current_card;
    current_card:=card;
    _players[current_player].removeCard(card.c,card.t,@cards_stack);
    cards_stack.push(card);
    cards_stack.shuffle;
-
-   //if card.t=DRAWFOURWIRD then
-   // reqFour:=true
-   //else reqFour:=false;
    if card.t=REVERSE then
     forward_dir:=not forward_dir;
    if current_card.t=DRAWFOURWIRD then
    begin
-    showmessage('+4');
+   // showmessage('+4');
     reqCount:=reqCount+4;
    end;
    if current_card.t=DRAW2 then     //trzeba sprawdzać, czy następny nie ma +2
    begin
-    { tmpcard:=cards_stack.pop;
-     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t);
-     tmpcard:=cards_stack.pop;
-     _players[peekNextPlayer].addCard(tmpcard.c,tmpcard.t) ;}
-   showmessage('+2');
+   //showmessage('+2');
    reqCount:=reqCount+2;
    end;
    if card.t=SKIP then
