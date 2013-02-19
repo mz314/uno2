@@ -18,15 +18,16 @@ type
     currentCard: TImage;
     GroupBox1: TGroupBox;
     Gracze: TGroupBox;
+    MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
-    reqColor: TLabel;
+    MenuItem4: TMenuItem;
     players_list: TListBox;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
     newgame: TMenuItem;
     endgame: TMenuItem;
     aiTimer: TTimer;
+    reqColorBox: TShape;
     procedure aiTimerTimer(Sender: TObject);
     procedure FormClick(Sender: TObject);
     procedure players_listSelectionChange(Sender: TObject; User: boolean);
@@ -73,14 +74,18 @@ var
 begin
   c:=gameState.getColor;
   case c of
-    CR: lbl:='Czerwony';
+   { CR: lbl:='Czerwony';
     CG: lbl:='Zielony';
     CB: lbl:='Niebieski';
     CY: lbl:='Żólty';
-  // 666: lbl:='test';
-    else lbl:=inttostr(c);
+    else lbl:=''; }
+   CR: begin reqColorBox.visible:=true; reqColorBox.Brush.Color:=clRed; end;
+   CG: begin reqColorBox.visible:=true; reqColorBox.Brush.Color:=clGreen; end;
+   CB: begin reqColorBox.visible:=true; reqColorBox.Brush.Color:=clBlue; end;
+   CY: begin reqColorBox.visible:=true; reqColorBox.Brush.Color:=clYellow; end
+   else reqColorBox.visible:=false;
   end;
-  reqColor.caption:=lbl;
+  //reqColor.caption:=lbl;
 end;
 
 procedure TMainWindow.refreshCard;
@@ -143,12 +148,20 @@ function TMainWindow.cardToImage(c: Tcard) : string;
 var
   fn: string;
 begin
+  if c.t<=13 then
+  begin
   case c.c of
    CR: fn:='red-empty.jpg';
    CG: fn:='green-empty.jpg';
    CB: fn:='blue-empty.jpg';
    CY: fn:='yellow-empty.jpg';
-   else fn:='1-red.jpg';
+  end;
+  end else
+  begin
+    case c.t of
+         WILD: fn:='xp.jpg';
+         DRAWFOURWIRD: fn:='xp4.jpg';
+    end;
   end;
   cardToImage:=images_dir+fn;
 end;

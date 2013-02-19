@@ -70,16 +70,16 @@ begin
   c:=pc^;
   if c.t<11 then
   begin
-    t.canvas.textout(45,70,inttostr(c.t));
+    t.canvas.textout(45,70,inttostr(c.t-1));
   end
   else
   begin {tymczasowo}
    case c.t of
-    11: t.canvas.textout(45,70,'SKIP');
+    11: t.canvas.textout(25,70,'STOP');
     12: t.canvas.textout(45,70,'+2');
-    13: t.canvas.textout(45,70,'<-->');
-    14: t.canvas.textout(45,70,'+4XP');
-    15: t.canvas.textout(45,70,'XP');
+    13: t.canvas.textout(32,65,'<->');
+   { 14: t.canvas.textout(45,70,'+4XP');
+    15: t.canvas.textout(45,70,'XP'); }
    end;
   end;
 end;

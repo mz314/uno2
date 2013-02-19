@@ -1,18 +1,18 @@
 inherited MainWindow: TMainWindow
-  Left = 345
-  Height = 537
-  Top = 125
-  Width = 741
-  HorzScrollBar.Page = 741
-  VertScrollBar.Page = 517
+  Left = 399
+  Height = 407
+  Top = 159
+  Width = 510
+  HorzScrollBar.Page = 510
+  VertScrollBar.Page = 387
   Align = alTop
   Anchors = []
   AutoScroll = True
   AutoSize = True
   Caption = 'UNO'
   ChildSizing.ControlsPerLine = 2
-  ClientHeight = 517
-  ClientWidth = 741
+  ClientHeight = 387
+  ClientWidth = 510
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClick = FormClick
@@ -21,50 +21,42 @@ inherited MainWindow: TMainWindow
   PopupMode = pmAuto
   object GroupBox1: TGroupBox[0]
     Left = 0
-    Height = 517
+    Height = 387
     Top = 0
-    Width = 376
+    Width = 264
     Align = alLeft
     Caption = 'Karta'
-    ClientHeight = 499
-    ClientWidth = 372
+    ClientHeight = 369
+    ClientWidth = 260
     TabOrder = 0
     object currentCard: TImage
-      Left = 94
-      Height = 320
-      Top = 25
-      Width = 210
+      Left = 62
+      Height = 200
+      Top = 8
+      Width = 152
     end
-    object reqColor: TLabel
-      Left = 142
-      Height = 38
-      Top = 392
-      Width = 104
-      Caption = 'reqColor'
-      Font.CharSet = EASTEUROPE_CHARSET
-      Font.Height = -32
-      Font.Name = 'Arial Narrow'
-      Font.Pitch = fpVariable
-      Font.Quality = fqDraft
-      ParentColor = False
-      ParentFont = False
+    object reqColorBox: TShape
+      Left = 62
+      Height = 65
+      Top = 224
+      Width = 153
     end
   end
   object Gracze: TGroupBox[1]
-    Left = 382
-    Height = 517
+    Left = 242
+    Height = 387
     Top = 0
-    Width = 359
+    Width = 268
     Align = alRight
     Caption = 'Gracze'
-    ClientHeight = 499
-    ClientWidth = 355
+    ClientHeight = 369
+    ClientWidth = 264
     TabOrder = 1
     object players_list: TListBox
-      Left = 22
-      Height = 432
-      Top = 25
-      Width = 312
+      Left = 44
+      Height = 215
+      Top = 9
+      Width = 176
       ItemHeight = 0
       OnSelectionChange = players_listSelectionChange
       ScrollWidth = 308
@@ -72,8 +64,8 @@ inherited MainWindow: TMainWindow
     end
   end
   object MainMenu1: TMainMenu[2]
-    left = 337
-    top = 24
+    left = 224
+    top = 104
     object MenuItem1: TMenuItem
       Caption = 'Plik'
       object newgame: TMenuItem
@@ -89,14 +81,18 @@ inherited MainWindow: TMainWindow
       end
     end
     object MenuItem2: TMenuItem
-      Caption = 'Edycja'
+      Caption = 'Pomoc'
+      RightJustify = True
+      object MenuItem4: TMenuItem
+        Caption = 'O programie'
+      end
     end
   end
   object aiTimer: TTimer[3]
     Enabled = False
     Interval = 2000
     OnTimer = aiTimerTimer
-    left = 337
-    top = 80
+    left = 224
+    top = 32
   end
 end
