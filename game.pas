@@ -46,8 +46,10 @@ type TGameState=object
     procedure playerDraw(n: integer);
     function getCurrentPlayer() : Tplayer;
     function peekNextPlayer : integer;
+    procedure reset;
     function getHumanPlayer() : Tplayer;
     function getState() : TGameStates;
+    function getFinished : boolean;
     procedure aiMove;
     function getPlayers() : Aplayer;
     function stateChanged() : boolean;
@@ -57,6 +59,19 @@ end;
 type PGameState=^TGameState;
 
 implementation
+
+function TGameState.getFinished : boolean;
+begin
+ if length(_players)-off_players=1 then
+  getFinished:=true else getFinished:=false;
+end;
+
+procedure TGameState.reset;
+begin
+ setLength(_players,0);
+ cards_stack.clear;
+ self.create;
+end;
 
 procedure TGameState.setColor(i: integer);
 begin
@@ -163,12 +178,10 @@ end;
     forward_dir:=not forward_dir;
    if current_card.t=DRAWFOURWIRD then
    begin
-   // showmessage('+4');
     reqCount:=reqCount+4;
    end;
    if current_card.t=DRAW2 then     //trzeba sprawdzać, czy następny nie ma +2
    begin
-   //showmessage('+2');
    reqCount:=reqCount+2;
    end;
    if card.t=SKIP then
@@ -213,6 +226,7 @@ begin
  begin
   _players[current_player].off:=true;
   inc(off_players);
+  _players[current_player].place:=off_players;
  end;
  iteratePlayer;
  if getSkip then

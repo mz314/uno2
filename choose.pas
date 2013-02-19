@@ -56,14 +56,16 @@ procedure TGameChoose.Button2Click(Sender: TObject);
 var
   f: TmainWindowInterface;
 begin
+  if strtoint(pcount.text)>10 then
+  begin
+    showmessage('Za duzo graczy. Nie starczy dla nich kart.');
+    exit;
+  end;
   if player_name.text='' then
    player_name.text:='Gracz';
- gameState^.setState(multi); //potem wycofam
-
+  gameState^.setState(multi);
   f:=TmainWindowInterface(mainForm);
-
   f.startGame(player_name.text,strtoint(pcount.text));
- // f.FormActivate(self);
   self.close;
 end;
 

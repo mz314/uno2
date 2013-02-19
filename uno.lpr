@@ -8,6 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, main, choose, game, cardsform, unogame, stack, layout, colorChoose;
+
   { you can add units after this }
 
 {$R *.res}
@@ -18,6 +19,8 @@ begin
   Application.Initialize;
   Application.CreateForm(TMainWindow, MainWindow);
   Application.CreateForm(TForm1, Form1);
+ // Application.CreateForm(TForm2, Form2);
+ // Application.CreateForm(Tabout, aboutWindow);
  // Application.CreateForm(TcolorChoose, colorChooseWindow);
   //Application.CreateForm(TcardsWindow, cardsWindow);
  // Application.MainForm:=MainWindow;

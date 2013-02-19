@@ -1,18 +1,19 @@
 inherited MainWindow: TMainWindow
-  Left = 399
-  Height = 407
-  Top = 159
-  Width = 510
+  Left = 494
+  Height = 401
+  Top = 49
+  Width = 422
   HorzScrollBar.Page = 510
+  HorzScrollBar.Range = 268
   VertScrollBar.Page = 387
+  VertScrollBar.Range = 307
   Align = alTop
   Anchors = []
-  AutoScroll = True
-  AutoSize = True
+  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'UNO'
   ChildSizing.ControlsPerLine = 2
-  ClientHeight = 387
-  ClientWidth = 510
+  ClientHeight = 381
+  ClientWidth = 422
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClick = FormClick
@@ -21,51 +22,56 @@ inherited MainWindow: TMainWindow
   PopupMode = pmAuto
   object GroupBox1: TGroupBox[0]
     Left = 0
-    Height = 387
+    Height = 353
     Top = 0
-    Width = 264
-    Align = alLeft
+    Width = 192
     Caption = 'Karta'
-    ClientHeight = 369
-    ClientWidth = 260
+    ClientHeight = 335
+    ClientWidth = 188
     TabOrder = 0
     object currentCard: TImage
-      Left = 62
+      Left = 38
       Height = 200
       Top = 8
-      Width = 152
+      Width = 120
     end
     object reqColorBox: TShape
-      Left = 62
+      Left = 22
       Height = 65
       Top = 224
       Width = 153
     end
   end
   object Gracze: TGroupBox[1]
-    Left = 242
-    Height = 387
+    Left = 192
+    Height = 353
     Top = 0
-    Width = 268
-    Align = alRight
+    Width = 224
     Caption = 'Gracze'
-    ClientHeight = 369
-    ClientWidth = 264
+    ClientHeight = 335
+    ClientWidth = 220
     TabOrder = 1
     object players_list: TListBox
-      Left = 44
-      Height = 215
+      Left = 22
+      Height = 311
       Top = 9
       Width = 176
       ItemHeight = 0
       OnSelectionChange = players_listSelectionChange
-      ScrollWidth = 308
+      ScrollWidth = 170
       TabOrder = 0
     end
   end
-  object MainMenu1: TMainMenu[2]
-    left = 224
-    top = 104
+  object StatusBar1: TStatusBar[2]
+    Left = 0
+    Height = 23
+    Top = 358
+    Width = 422
+    Panels = <>
+  end
+  object MainMenu1: TMainMenu[3]
+    left = 168
+    top = 88
     object MenuItem1: TMenuItem
       Caption = 'Plik'
       object newgame: TMenuItem
@@ -85,14 +91,15 @@ inherited MainWindow: TMainWindow
       RightJustify = True
       object MenuItem4: TMenuItem
         Caption = 'O programie'
+        OnClick = MenuItem4Click
       end
     end
   end
-  object aiTimer: TTimer[3]
+  object aiTimer: TTimer[4]
     Enabled = False
     Interval = 2000
     OnTimer = aiTimerTimer
-    left = 224
-    top = 32
+    left = 168
+    top = 24
   end
 end

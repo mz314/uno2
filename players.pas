@@ -13,7 +13,7 @@ type Tplayer=object   //WARNING: Object -> dobrze, Class -> SIGSEGV
   public
     cards: Tcards;
     name: string;
-    id: word;
+    id,place: word;
     ai,off: boolean;
 
     constructor Create();
@@ -68,6 +68,7 @@ end;
 constructor TPlayer.Create();
 begin
  off:=false;
+ place:=0;
 end;
 
 end.

@@ -7,9 +7,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  StdCtrls, ExtCtrls,
-  choose, game,cardsform,main_definitions,cards,players,layout,colorChoose;
-
+  StdCtrls, ExtCtrls, ComCtrls,
+  choose, game,cardsform,main_definitions,cards,players,layout,colorChoose,
+      about;
 type
 
   { TMainWindow }
@@ -28,8 +28,10 @@ type
     endgame: TMenuItem;
     aiTimer: TTimer;
     reqColorBox: TShape;
+    StatusBar1: TStatusBar;
     procedure aiTimerTimer(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure MenuItem4Click(Sender: TObject);
     procedure players_listSelectionChange(Sender: TObject; User: boolean);
     procedure startGame(player_name: string; players: word); override;
     procedure endgameClick(Sender: TObject);
@@ -40,6 +42,7 @@ type
   private
     choose: TGameChoose;
     cards: TcardsWindow;
+    colorChooseWindow: TColorChoose;
     procedure cleanForm;
     procedure uncleanForm;
     procedure showCards; //wyświetla i odświerza karty gracza
@@ -59,7 +62,8 @@ type
 var
   MainWindow: TMainWindow;
   gameState: TGameState;
-  colorChooseWindow: TColorChoose;
+  aboutWindow: TAbout;
+
 
 implementation
 
@@ -103,13 +107,23 @@ var
  i,n: integer;
  a: APlayer;
  pcards: TCards;
+ place: string;
 begin
  a:=gameState.getPlayers();
  players_list.Clear;
  for i:=0 to length(a)-1 do
    begin
     pcards:=a[i].getCards;
-    players_list.AddItem(PChar(a[i].name)+' '+inttostr(length(pcards)),nil);
+    if length(pcards)>0 then
+     players_list.AddItem(PChar(a[i].name)+' '+inttostr(length(pcards)),nil)
+    else
+    begin
+     if a[i].place=1 then
+       place:='Wygral!'
+     else
+         place:=inttostr(a[i].place)+' miejsce';
+     players_list.AddItem(PChar(a[i].name)+' '+place,nil)
+    end;
    end;
 end;
 
@@ -118,7 +132,17 @@ var
   current: TPlayer;
 begin
   current:=gameState.getCurrentPlayer();
-     showCards()  ;
+  if ((current.ai=false) and (length(current.cards)=0)) or (gameState.getFinished) then
+  begin
+    if (not current.ai) and (current.place=1) then
+     showmessage('Wygrales!')
+    else
+     showmessage('Przegrales :(');
+    gameState.setState(idle);
+    endCurrentGame;
+  end else
+  begin
+  showCards()  ;
   if current.ai then
   begin
    aiTimer.enabled:=true;
@@ -126,14 +150,13 @@ begin
   end else
   begin
    aiTimer.enabled:=false;
-
    lockCards(true);
-
   end;
   refreshCard;
   showColorReq;
   showPlayerList;
   selectCurrent;
+  end;
 end;
 
 procedure TMainWindow.selectCurrent;
@@ -170,17 +193,19 @@ procedure TMainWindow.newgameClick(Sender: TObject);
 begin
     choose.showmodal();
 end;
+
 procedure TMainWindow.cleanForm;
 begin
  groupbox1.visible:=false;
  gracze.visible:=false;
- cards.visible:=false;
+// cards.visible:=false;
+cards.hide;
 end;
 
 procedure TMainWindow.uncleanForm;
 begin
    groupbox1.visible:=true;
-   cards.show();
+   cards.visible:=true;
  gracze.visible:=true;
 end;
 
@@ -197,7 +222,9 @@ begin
   cards:=TcardsWindow.Create(self);
   cards.gameState:=@gameState;
   cards.colorChooseWindow:=colorChooseWindow;
-   f:=self;
+  aboutWindow:=Tabout.create(self);
+ // cards.parent:=self;
+  f:=self;
    choose.mainForm:=f;
    cards.mainForm:=f;
    gameState.mainForm:=f;
@@ -213,6 +240,8 @@ procedure TMainWindow.endCurrentGame;
 begin
   aiTimer.Enabled:=false;
   cleanForm;
+  gameState.reset;
+  newgame.enabled:=true;
 end;
 
 procedure TMainWindow.startGame(player_name: string; players: word);
@@ -245,6 +274,11 @@ end;
 procedure TMainWindow.FormClick(Sender: TObject);
 begin
 
+end;
+
+procedure TMainWindow.MenuItem4Click(Sender: TObject);
+begin
+  aboutWindow.show;
 end;
 
 procedure TMainWindow.players_listSelectionChange(Sender: TObject; User: boolean

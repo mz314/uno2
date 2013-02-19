@@ -18,12 +18,18 @@ constructor create;
     procedure shuffle; //miesza karty
     function pop() : Tcard;
     function stackCount : word;
+    procedure clear;
 
 end;
 
 type PStack=^TStack;
 
 implementation
+
+procedure Tstack.clear;
+begin
+ setLength(data,0);
+end;
 
 function Tstack.stackCount : word;
 begin

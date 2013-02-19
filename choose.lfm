@@ -11,7 +11,7 @@ object GameChoose: TGameChoose
   object GroupBox1: TGroupBox
     Left = 8
     Height = 77
-    Top = 72
+    Top = 80
     Width = 312
     Caption = 'Ilość graczy'
     ClientHeight = 59
@@ -58,7 +58,7 @@ object GameChoose: TGameChoose
   object GroupBox2: TGroupBox
     Left = 8
     Height = 64
-    Top = 0
+    Top = 8
     Width = 312
     Caption = 'Twoje imie'
     ClientHeight = 46
@@ -70,6 +70,7 @@ object GameChoose: TGameChoose
       Top = 9
       Width = 296
       TabOrder = 0
+      Text = 'Gracz'
     end
   end
 end

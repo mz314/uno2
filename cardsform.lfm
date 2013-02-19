@@ -1,22 +1,25 @@
 object cardsWindow: TcardsWindow
-  Left = 182
-  Height = 228
-  Top = 287
+  Left = 265
+  Height = 206
+  Top = 488
   Width = 1017
   HorzScrollBar.Page = 1017
+  HorzScrollBar.Range = 131
   VertScrollBar.Page = 228
-  AutoScroll = True
+  VertScrollBar.Range = 195
+  BorderIcons = [biMinimize]
   Caption = 'Twoje Karty'
-  ClientHeight = 228
+  ClientHeight = 206
   ClientWidth = 1017
   OnClose = FormClose
   OnHide = FormHide
-  PopupMode = pmAuto
+  ShowInTaskBar = stNever
+  UseDockManager = True
   LCLVersion = '1.0.6.0'
   object drawButton: TButton
     Left = 16
     Height = 179
-    Top = 16
+    Top = 8
     Width = 115
     Caption = 'Ciągnij kartę'
     OnClick = drawButtonClick

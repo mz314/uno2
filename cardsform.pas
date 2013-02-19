@@ -29,8 +29,8 @@ type
     procedure cardClicked(Sender: TObject);
   end;
 
-var
-  cardsWindow: TcardsWindow;
+//var
+//  cardsWindow: TcardsWindow;
 
 implementation
 
@@ -87,7 +87,7 @@ end;
 procedure TcardsWindow.FormClose(Sender: TObject; var CloseAction: TCloseAction
   );
 begin
-  self.visible:=true;
+  //self.visible:=true;
 end;
 
 procedure TcardsWindow.drawButtonClick(Sender: TObject);
@@ -99,7 +99,7 @@ end;
 
 procedure TcardsWindow.FormHide(Sender: TObject);
 begin
-  self.visible:=true;
+//  self.visible:=true;
 end;
 
 end.
