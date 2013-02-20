@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, main, choose, game, cardsform, unogame, stack, layout, colorChoose;
+  Forms, main, choose, game, cardsform, unogame, stack, layout, colorChoose,
+  how;
 
   { you can add units after this }
 
@@ -19,6 +20,7 @@ begin
   Application.Initialize;
   Application.CreateForm(TMainWindow, MainWindow);
   Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(Thowto, howto);
  // Application.CreateForm(TForm2, Form2);
  // Application.CreateForm(Tabout, aboutWindow);
  // Application.CreateForm(TcolorChoose, colorChooseWindow);

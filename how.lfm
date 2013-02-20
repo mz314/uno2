@@ -1,0 +1,8 @@
+object howto: Thowto
+  Left = 293
+  Height = 240
+  Top = 145
+  Width = 320
+  Caption = 'howto'
+  LCLVersion = '1.0.6.0'
+end
