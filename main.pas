@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   StdCtrls, ExtCtrls, ComCtrls,
   choose, game,cardsform,main_definitions,cards,players,layout,colorChoose,
-      about;
+      about,how;
 type
 
   { TMainWindow }
@@ -18,6 +18,7 @@ type
     currentCard: TImage;
     GroupBox1: TGroupBox;
     Gracze: TGroupBox;
+    MenuItem5: TMenuItem;
     unotext: TLabel;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
@@ -34,6 +35,7 @@ type
     procedure FormClick(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
+    procedure MenuItem5Click(Sender: TObject);
     procedure players_listSelectionChange(Sender: TObject; User: boolean);
     procedure startGame(player_name: string; players: word); override;
     procedure endgameClick(Sender: TObject);
@@ -292,6 +294,11 @@ end;
 procedure TMainWindow.MenuItem4Click(Sender: TObject);
 begin
   aboutWindow.show;
+end;
+
+procedure TMainWindow.MenuItem5Click(Sender: TObject);
+begin
+  howto.show;
 end;
 
 procedure TMainWindow.players_listSelectionChange(Sender: TObject; User: boolean

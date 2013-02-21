@@ -131,6 +131,7 @@
         <Filename Value="how.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="howto"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="how"/>
       </Unit14>

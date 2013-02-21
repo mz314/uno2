@@ -1,7 +1,7 @@
 inherited MainWindow: TMainWindow
-  Left = 423
+  Left = 701
   Height = 401
-  Top = 163
+  Top = 209
   Width = 422
   HorzScrollBar.Page = 510
   HorzScrollBar.Range = 268
@@ -109,6 +109,10 @@ inherited MainWindow: TMainWindow
       object MenuItem4: TMenuItem
         Caption = 'O programie'
         OnClick = MenuItem4Click
+      end
+      object MenuItem5: TMenuItem
+        Caption = 'Zasady'
+        OnClick = MenuItem5Click
       end
     end
   end

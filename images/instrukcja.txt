@@ -1,0 +1,15 @@
+﻿Graczy może być od 2 do 10.
+
+Na początku gry rozdaje się po 7 kart każdemu graczowi i jedną z talii kładzie się na środek. Grę rozpoczyna osoba po lewej stronie rozdającego. Gracz musi dopasować swoją kartę numerem, kolorem lub symbolem do odkrytej karty. Jeżeli gracz nie posiada żadnej karty pasującej do tej odkrytej, musi pociągnąć kartę z talii. Jeśli wyciągnięta karta pasuje do odkrytej, jeszcze w tej samej kolejce gracz może ją dołożyć. Jeżeli nie – ruch ma kolejny gracz. Nie ma przymusu w dokładaniu kart.
+
+W talii są także karty specjalne takie jak Skip, Reverse, Draw two, Draw four i Wild.
+
+    Skip (jak 4 w makao) - następny gracz traci (stoi) kolejkę
+    Reverse (jak As w kunjo) - karta zmieniająca kierunek gry
+    Draw Two - następny gracz bierze dwie karty
+    Draw Four Wild - zagrywający kartę deklaruje zmianę koloru na dowolnie przez siebie wybrany, następny gracz bierze 4 karty, oraz traci kolejkę
+    Wild - zagrywający kartę deklaruje zmianę koloru na dowolnie przez siebie wybrany (jeden z kolorów dostępnych w grze)
+
+Karty Skip, Reverse, Draw two można kłaść tylko do określonego koloru - natomiast karty Draw four i Wild można kłaść na dowolną kartę.
+
+Wygrywa ten, kto pierwszy pozbędzie się wszystkich kart.
